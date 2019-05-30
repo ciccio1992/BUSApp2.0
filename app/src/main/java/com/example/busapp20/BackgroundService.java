@@ -5,7 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -14,11 +16,16 @@ import android.widget.Toast;
 
 
 public class BackgroundService extends Service {
+
     public static final String CHANNEL_ID = "BusAppServiceChannel";
+    static WifiManager wifiManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // creazione del servizio
