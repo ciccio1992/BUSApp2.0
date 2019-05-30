@@ -13,4 +13,8 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send feedback</string>
+    <string name="background_service">BusApp Background Service</string>
+
+    <string-array name="mac_addresses">84:80:2d:c3:a0:72;
+        00:3a:98:7d:4a:c2</string-array>
 </resources>
