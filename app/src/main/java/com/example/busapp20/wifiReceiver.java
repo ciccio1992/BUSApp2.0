@@ -11,6 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.busapp20.MainActivity.lastResultsRes;
+import static com.example.busapp20.MainActivity.onbusres;
+
 
 public class wifiReceiver extends BroadcastReceiver {
 
@@ -19,6 +22,11 @@ public class wifiReceiver extends BroadcastReceiver {
     List<ScanResult> results;
     public int Trigger;
     ArrayList<String> arrayList = new ArrayList<>();
+    public static boolean onBus = false;
+    int lastResults[] = new int[10];
+    String resultsToString = "";
+    int counter = 0;            // Counts the position where to write next result in the Array
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,13 +39,14 @@ public class wifiReceiver extends BroadcastReceiver {
         Log.i(TAG, "Wifi Scan Received");
         int isFound = 0;
 
+        // This is to count the number of successful Wi-Fi scans.
+        int successCounter = 0;     // Number of Success (2) in the last 10 attempts.
+
         // Now we build the list with available networks.
 
-        if (results.size() == 0){
+        if (results.size() == 0) {
             Log.i(TAG, "EMPTY WIFI LIST");
-        }
-
-        else {
+        } else {
             Log.i(TAG, "RECEIVED WIFI LIST");
 
             for (ScanResult scanResult : results) {
@@ -51,14 +60,30 @@ public class wifiReceiver extends BroadcastReceiver {
                 if (scanResult.BSSID.equals("00:3a:98:7d:4a:c2") && scanResult.level > -62) {
                     isFound++;
                 }
-            }
-            if (isFound == 2) {
-                Trigger++;
-            }
 
-            if (Trigger>3){
+                lastResults [counter] = isFound;
+                isFound = 0;
+                resultsToString = "";
 
-                // function that launch the app
+                for (int i = 0; i < 10; i++) {
+                    if (lastResults[i] == 2)
+                        resultsToString.concat (String.valueOf(lastResults[i]) + " ");
+                        successCounter++;
+                }
+
+                if (successCounter > 7)       // 7 out of 10 attempts validated
+                {
+                    // CODE TO HANDLE YOU ARE ON THE BUS
+                    onBus = true;
+                }
+                else
+                    onBus = false;
+
+                if (counter == 9)           //Counter RESET to simulate queue.
+                    counter = 0;
+
+                lastResultsRes.setText (resultsToString);
+                onbusres.setText(String.valueOf(onBus));
             }
         }
     }

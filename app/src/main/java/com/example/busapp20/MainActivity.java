@@ -1,7 +1,13 @@
 package com.example.busapp20;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,9 +21,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    Button btEnableWifi, btDisableWifi, btGetData, btScan, settingsButton;
+    static WifiManager wifiManager;
+    static TextView lastResultsRes, onbusres;
+    // ListView listView;
+    BroadcastReceiver myReceiver = null;
+    public int validatorCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +60,56 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // CONNECTING UI ITEMS TO JAVA
+        /*
+        settingsButton = findViewById(R.id.settingsButton);
+        btEnableWifi = findViewById(R.id.btEnableWifi);
+        btDisableWifi = findViewById(R.id.btDisableWifi);
+        btGetData = findViewById(R.id.btGetStatus);
+        wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
+        btScan = findViewById(R.id.btScan);
+        lastResultsRes = findViewById(R.id.lastResultsRes);
+        onbusres = findViewById(R.id.onBusResult);
+
+        startService(new Intent(this, BackgroundService.class));
+
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        myReceiver = new wifiReceiver();
+        registerReceiver(myReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+
+        // Buttons to Enable\Disable WIFI
+
+        btEnableWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wifiManager.setWifiEnabled(true);
+                Toast.makeText(MainActivity.this, "WiFi Enabled", Toast.LENGTH_SHORT).show();
+                WifiLoopTimer.start();
+            }
+        });
+
+        btDisableWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wifiManager.setWifiEnabled(false);
+                Toast.makeText(MainActivity.this, "WiFi Disabled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        btScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                wifiManager.startScan();
+            }
+        });
+
+        // This section of code handles the WiFi network search and returns a ListArray with all Networks.
+
+       //  listView = findViewById(R.id.wifiList);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
 
     }
@@ -98,4 +168,35 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {           //THIS CODE REQUIRES PERMISSIONS ON RUNTIME!
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 87);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_WIFI_STATE}, 87);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.INTERNET}, 87);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
+            }
+        }
+    }
 }
+
+/*
+if
+ */
