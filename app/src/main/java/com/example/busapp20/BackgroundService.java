@@ -81,7 +81,7 @@ public class BackgroundService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service STOPPED\nBackgroundService onDestroy", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service STOPPED", Toast.LENGTH_LONG).show();
     }
 
     @Nullable
