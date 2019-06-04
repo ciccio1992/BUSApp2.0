@@ -21,11 +21,10 @@ public class wifiReceiver extends BroadcastReceiver {
     public int Trigger;
     ArrayList<String> arrayList = new ArrayList<>();
     public static boolean onBus = false;
-    int lastResults[] = new int[10];
+    static int lastResults[] = new int[10];
     String resultsToString = "";
     int counter = 0;            // Counts the position where to write next result in the Array
     TextView lastResultsRes, onbusres;
-
 
 
     @Override
@@ -56,38 +55,39 @@ public class wifiReceiver extends BroadcastReceiver {
             }
 
             for (ScanResult scanResult : results) {
-                if (scanResult.BSSID.equals("84:80:2d:c3:a0:72") && scanResult.level > -75) {
+                if (scanResult.BSSID.equals("00:3a:98:7d:4a:c1") && scanResult.level > -80) {
                     isFound++;
                 }
-                if (scanResult.BSSID.equals("00:3a:98:7d:4a:c2") && scanResult.level > -62) {
+                if (scanResult.BSSID.equals("00:3a:98:7d:4a:c2") && scanResult.level > -80) {
                     isFound++;
                 }
+            }
 
-                lastResults [counter] = isFound;
-                isFound = 0;
-                resultsToString = "";
+            lastResults[counter] = isFound;
+            counter++;
+            isFound = 0;
+            resultsToString = "";
 
-                for (int i = 0; i < 10; i++) {
-                    if (lastResults[i] == 2) {
-                        resultsToString.concat((lastResults[i]) + " ");
-                        successCounter++;
-                    }
+            for (int i = 0; i < 10; i++) {
+                if (lastResults[i] == 2) {
+                    resultsToString.concat((lastResults[i]) + " ");
+                    successCounter++;
                 }
+            }
 
-                if (successCounter > 7)       // 7 out of 10 attempts validated
-                {
-                    // CODE TO HANDLE YOU ARE ON THE BUS
-                    onBus = true;
-                }
-                else
-                    onBus = false;
+            if (successCounter > 7)       // 7 out of 10 attempts validated
+            {
+                // CODE TO HANDLE YOU ARE ON THE BUS
+                onBus = true;
+            } else
+                onBus = false;
 
-                if (counter == 9)           //Counter RESET to simulate queue.
-                    counter = 0;
+            if (counter == 9)           //Counter RESET to simulate queue.
+                counter = 0;
 
 //                lastResultsRes.setText (resultsToString);
 //                onbusres.setText(String.valueOf(onBus));
-            }
+
         }
     }
 }
