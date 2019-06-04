@@ -30,7 +30,7 @@ public class BackgroundService extends Service {
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // creazione del servizio
-        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG)
+        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT)
                 .show();
 
         WifiLoopTimer.start();
@@ -58,7 +58,7 @@ public class BackgroundService extends Service {
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // inizializzazione del servizio.
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
 
         return START_STICKY;
     }

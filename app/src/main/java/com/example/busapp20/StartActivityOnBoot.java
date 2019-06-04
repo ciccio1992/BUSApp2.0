@@ -17,7 +17,7 @@ public class StartActivityOnBoot extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())){
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){
 
             Toast.makeText(context, "Boot Completed", Toast.LENGTH_SHORT).show();
 
