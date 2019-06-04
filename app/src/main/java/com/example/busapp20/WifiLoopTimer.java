@@ -11,15 +11,16 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.busapp20.BackgroundService.wifiManager;
 
 public class WifiLoopTimer extends BackgroundService {
+
 
     private static Timer timer;
     private static TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
-            //wifiManager.startScan();
+
+            MainActivity.wifiManager.startScan();
             Log.i("WIFILOOPTIMER","SCAN RUN AUTOMATICALLY");
         }
     };
@@ -28,14 +29,14 @@ public class WifiLoopTimer extends BackgroundService {
     public static void start() {
         if (timer == null) {
             timer = new Timer();
-            timer.scheduleAtFixedRate(timerTask, 0, 10000);
+            timer.scheduleAtFixedRate(timerTask, 0, 4000);
         } else {
             return;
         }
     }
 
-    public void stop() {
-        timer.cancel();
+    public static void stop() {
+        timer.schedule(timerTask, 60000);
         timer = null;
     }
 

@@ -17,10 +17,9 @@ public class StartActivityOnBoot extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Intent.ACTION_TIME_TICK.equals(intent.getAction())){
+        if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())){
 
             Toast.makeText(context, "Boot Completed", Toast.LENGTH_SHORT).show();
-            WifiLoopTimer.start();
 
             Intent i = new Intent(context, BackgroundService.class);
             context.startService(i);

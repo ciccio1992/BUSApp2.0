@@ -8,15 +8,23 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".SendActivity"></activity>
+        <activity android:name=".ShareActivity" />
+        <activity android:name=".ToolsActivity" />
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -33,31 +41,22 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.TIME_TICK"/>
+                <action android:name="android.intent.action.SCREEN_OFF" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".wifiReceiver"
             android:enabled="true"
-            android:exported="true"
-            >
-        </receiver>
+            android:exported="true" />
 
         <service
             android:name=".BackgroundService"
             android:enabled="true"
-            android:exported="true"
-            ></service>
-
+            android:exported="true" />
         <service
             android:name=".WifiLoopTimer"
             android:enabled="true"
-            android:exported="true"
-            ></service>
-
+            android:exported="true" />
     </application>
-
-
 
 </manifest>

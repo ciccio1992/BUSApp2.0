@@ -22,17 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    Button btEnableWifi, btDisableWifi, btGetData, btScan, settingsButton;
+    // Button btEnableWifi, btDisableWifi, btGetData, btScan, settingsButton;
     static WifiManager wifiManager;
 
     BroadcastReceiver myReceiver = null;
@@ -48,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Not available yet.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -68,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         btDisableWifi = findViewById(R.id.btDisableWifi);
         btGetData = findViewById(R.id.btGetStatus);
         wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
-        btScan = findViewById(R.id.btScan);
 
 
         startService(new Intent(this, BackgroundService.class));
@@ -99,17 +93,10 @@ public class MainActivity extends AppCompatActivity
         });
 */
 
-        btScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                wifiManager.startScan();
-            }
-        });
-
 
         // This section of code handles the WiFi network search and returns a ListArray with all Networks.
 
-       //  listView = findViewById(R.id.wifiList);
+        //  listView = findViewById(R.id.wifiList);
 
     }
 
@@ -151,16 +138,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_history) {
-
+         if (id == R.id.nav_history) {
+            openHistory();
         } else if (id == R.id.nav_tools) {
-
+            openTools();
         } else if (id == R.id.nav_share) {
-
+             openShare();
         } else if (id == R.id.nav_send) {
-
+             openSend();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -194,6 +179,32 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+    public void openHistory() {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void openTools() {
+        Intent intent = new Intent(this, ToolsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openShare() {
+        Intent intent = new Intent(this, ShareActivity.class);
+        startActivity(intent);
+    }
+
+    public void openSend() {
+        Intent intent = new Intent(this, SendActivity.class);
+        startActivity(intent);
+    }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
 
 /*

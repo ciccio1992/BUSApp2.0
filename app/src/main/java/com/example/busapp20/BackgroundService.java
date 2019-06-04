@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
@@ -18,19 +19,21 @@ import android.widget.Toast;
 public class BackgroundService extends Service {
 
     public static final String CHANNEL_ID = "BusAppServiceChannel";
-    static WifiManager wifiManager;
+   // static WifiManager wifiManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+      //  WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // creazione del servizio
-        Toast.makeText(this, "Service Created\nBackgoundService onCreate", Toast.LENGTH_LONG)
+        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG)
                 .show();
+
+        WifiLoopTimer.start();
         }
 
     @Override
@@ -45,7 +48,8 @@ public class BackgroundService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("BusApp Background Service")
                 .setContentText(input)
-      //          .setSmallIcon(R.mipmap.ic_stat_airport_shuttle)
+                .setSmallIcon(R.drawable.ic_stat_persistentnotification)
+                .setColor(Color.parseColor("#FF5722"))
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -54,8 +58,7 @@ public class BackgroundService extends Service {
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // inizializzazione del servizio.
-        Toast.makeText(this, "Service Started\n" +
-                "BackgroundService onStart", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
 
         return START_STICKY;
     }
