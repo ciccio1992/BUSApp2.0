@@ -109,5 +109,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="busapp_2_0">BusApp 2.0</string>
-    <string name="an_app_by">An App by:\n Marco Piccinini\n Andrea Mura</string>
+    <string name="an_app_by">An App by:\nAndrea Mura\nMarco Piccinini</string>
 </resources>

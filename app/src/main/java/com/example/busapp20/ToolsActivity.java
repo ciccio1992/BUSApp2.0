@@ -18,8 +18,8 @@ public class ToolsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
 
-        lastResultsRes = lastResultsRes.findViewById(R.id.tvLastResults);
-        onbusres = onbusres.findViewById(R.id.tvOnbus);
+//        lastResultsRes = lastResultsRes.findViewById(R.id.tvLastResults);
+  //      onbusres = onbusres.findViewById(R.id.tvOnbus);
 
         btScan = findViewById(R.id.btScan);
 
