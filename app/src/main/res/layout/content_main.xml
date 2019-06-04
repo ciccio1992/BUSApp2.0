@@ -13,25 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="84dp"
         android:text="Array ultime scansioni:"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="91dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lastResultsRes"
         android:layout_width="117dp"
         android:layout_height="23dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/onBusResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/lastResults"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/lastResults" />
 
     <TextView
         android:id="@+id/onbus"
@@ -46,14 +44,15 @@
     <TextView
         android:id="@+id/onBusResult"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="21dp"
         android:layout_marginStart="176dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/onbus"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintTop_toBottomOf="@+id/lastResults" />
 
     <Button
         android:id="@+id/btScan"
@@ -64,5 +63,6 @@
         android:text="FORCE SCAN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

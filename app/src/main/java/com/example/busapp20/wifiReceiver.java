@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.busapp20.MainActivity.lastResultsRes;
-import static com.example.busapp20.MainActivity.onbusres;
 
 
 public class wifiReceiver extends BroadcastReceiver {
@@ -26,11 +24,15 @@ public class wifiReceiver extends BroadcastReceiver {
     int lastResults[] = new int[10];
     String resultsToString = "";
     int counter = 0;            // Counts the position where to write next result in the Array
+    TextView lastResultsRes, onbusres;
+
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        //lastResultsRes = lastResultsRes.findViewById(R.id.lastResultsRes);
+        //onbusres = onbusres.findViewById(R.id.onBusResult);
 
         //Triggered on wifi scan's result available broadcast received
 
@@ -66,9 +68,10 @@ public class wifiReceiver extends BroadcastReceiver {
                 resultsToString = "";
 
                 for (int i = 0; i < 10; i++) {
-                    if (lastResults[i] == 2)
-                        resultsToString.concat (String.valueOf(lastResults[i]) + " ");
+                    if (lastResults[i] == 2) {
+                        resultsToString.concat((lastResults[i]) + " ");
                         successCounter++;
+                    }
                 }
 
                 if (successCounter > 7)       // 7 out of 10 attempts validated
@@ -82,8 +85,8 @@ public class wifiReceiver extends BroadcastReceiver {
                 if (counter == 9)           //Counter RESET to simulate queue.
                     counter = 0;
 
-                lastResultsRes.setText (resultsToString);
-                onbusres.setText(String.valueOf(onBus));
+//                lastResultsRes.setText (resultsToString);
+//                onbusres.setText(String.valueOf(onBus));
             }
         }
     }

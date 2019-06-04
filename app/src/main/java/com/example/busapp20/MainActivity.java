@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     Button btEnableWifi, btDisableWifi, btGetData, btScan, settingsButton;
     static WifiManager wifiManager;
-    static TextView lastResultsRes, onbusres;
-    // ListView listView;
+
     BroadcastReceiver myReceiver = null;
     public int validatorCounter = 0;
 
@@ -70,8 +69,7 @@ public class MainActivity extends AppCompatActivity
         btGetData = findViewById(R.id.btGetStatus);
         wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
         btScan = findViewById(R.id.btScan);
-        lastResultsRes = findViewById(R.id.lastResultsRes);
-        onbusres = findViewById(R.id.onBusResult);
+
 
         startService(new Intent(this, BackgroundService.class));
 
@@ -81,6 +79,8 @@ public class MainActivity extends AppCompatActivity
 
         // Buttons to Enable\Disable WIFI
 
+
+        /*
         btEnableWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "WiFi Disabled", Toast.LENGTH_SHORT).show();
             }
         });
-
+*/
 
         btScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,11 +106,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
         // This section of code handles the WiFi network search and returns a ListArray with all Networks.
 
        //  listView = findViewById(R.id.wifiList);
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
 
     }
 

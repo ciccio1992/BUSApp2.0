@@ -45,15 +45,17 @@ public class BackgroundService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("BusApp Background Service")
                 .setContentText(input)
-                .setSmallIcon(R.mipmap.ic_stat_airport_shuttle)
+      //          .setSmallIcon(R.mipmap.ic_stat_airport_shuttle)
                 .setContentIntent(pendingIntent)
                 .build();
 
         startForeground(1, notification);
 
+
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // inizializzazione del servizio.
-        Toast.makeText(this, "Service Started\nBackgroundService onStart", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Started\n" +
+                "BackgroundService onStart", Toast.LENGTH_LONG).show();
 
         return START_STICKY;
     }
