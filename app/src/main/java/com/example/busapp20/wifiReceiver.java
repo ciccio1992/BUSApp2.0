@@ -82,7 +82,7 @@ public class wifiReceiver extends BroadcastReceiver {
             if (successCounter > 3) {
                 onBus = true;
                 Toast.makeText(context,"YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
-//                WifiLoopTimer.stop();
+//                WifiLoopTimer.pause();
             } else {
                 onBus = false;
             }

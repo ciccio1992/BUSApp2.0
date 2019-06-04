@@ -35,8 +35,12 @@ public class WifiLoopTimer extends BackgroundService {
         }
     }
 
-    public static void stop() {
+
+    public static void pause() {
         timer.schedule(timerTask, 60000);
+    }
+    public static void stop() {
+        timer.cancel();
         timer = null;
     }
 
