@@ -6,6 +6,10 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_topup"
+            android:icon="@drawable/cio_ic_paypal_monogram"
+            android:title="Ricarica" />
+        <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_ticket_history"
             android:title="@string/menu_ticket_history" />

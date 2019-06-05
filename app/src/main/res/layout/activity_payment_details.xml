@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PaymentDetails">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="ID Pagamento "
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAmount"
+            app:layout_constraintVertical_bias="0.505"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/txtAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Importo Ricarica  "
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtId"
+            app:layout_constraintTop_toBottomOf="@+id/txtStatus"
+            app:layout_constraintVertical_bias="0.405"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stato del pagamento: "
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtAmount"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

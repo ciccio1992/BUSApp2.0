@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -21,20 +22,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.Button;
+import android.widget.TextView;
+
+import static com.example.busapp20.SendActivity.MY_PREFS_NAME;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    // Button btEnableWifi, btDisableWifi, btGetData, btScan, settingsButton;
     static WifiManager wifiManager;
+    TextView balanceAmount;
+
 
     BroadcastReceiver myReceiver = null;
     public int validatorCounter = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         btDisableWifi = findViewById(R.id.btDisableWifi);
         btGetData = findViewById(R.id.btGetStatus);
         wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
-
+        balanceAmount = findViewById(R.id.amountValue);
 
         startService(new Intent(this, BackgroundService.class));
 
@@ -144,7 +150,7 @@ public class MainActivity extends AppCompatActivity
             openTools();
         } else if (id == R.id.nav_share) {
              openShare();
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_topup) {
              openSend();
         }
 
@@ -158,7 +164,9 @@ public class MainActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {           //THIS CODE REQUIRES PERMISSIONS ON RUNTIME!
+        ///THE FOLLOWING CODE REQUIRES PERMISSIONS ON RUNTIME!
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 87);
             }
@@ -178,7 +186,19 @@ public class MainActivity extends AppCompatActivity
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
             }
         }
+
+        /// END PERMISSION REQUIRES
     }
+
+    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHAREDPREFS
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        float myBalance = prefs.getFloat("Balance", 0);
+        balanceAmount.setText(myBalance + " €");
+    }
+
 
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
