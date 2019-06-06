@@ -7,10 +7,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import static com.example.busapp20.MainActivity.wifiManager;
+import static com.example.busapp20.wifiReceiver.lastResults;
+import static com.example.busapp20.wifiReceiver.onBus;
+import static com.example.busapp20.wifiReceiver.resultsToString;
 
 public class ToolsActivity extends AppCompatActivity {
+
     Button btScan;
-    TextView lastResultsRes, onbusres = null;
+    TextView lastResultsRes, onbusres;
 
 
     @Override
@@ -18,19 +22,37 @@ public class ToolsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
 
-//        lastResultsRes = lastResultsRes.findViewById(R.id.tvLastResults);
-  //      onbusres = onbusres.findViewById(R.id.tvOnbus);
 
         btScan = findViewById(R.id.btScan);
+        lastResultsRes = findViewById(R.id.tvLastResults);
+        onbusres = findViewById(R.id.tvOnbus);
 
         btScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 wifiManager.startScan();
+                UpdateTestData();
             }
         });
     }
 
+    ///UPDATING DATA RECEIVED FROM wifiReceiver.java
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        UpdateTestData();
+    }
 
+    void UpdateTestData () {
+        resultsToString = "";
+        for (int i = 0; i < 10; i++) {
+            int temp = lastResults[i];
+            String tempStr = String.valueOf(temp);
+            resultsToString = resultsToString.concat(tempStr + " ");
+        }
+
+        onbusres.setText(String.valueOf(onBus));
+        lastResultsRes.setText(resultsToString);
+    }
 }

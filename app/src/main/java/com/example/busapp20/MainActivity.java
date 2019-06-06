@@ -24,7 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
 
-import static com.example.busapp20.SendActivity.MY_PREFS_NAME;
+import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity
 
     static WifiManager wifiManager;
     TextView balanceAmount;
-
 
     BroadcastReceiver myReceiver = null;
     public int validatorCounter = 0;
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         btGetData = findViewById(R.id.btGetStatus);
         wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
         balanceAmount = findViewById(R.id.amountValue);
+
 
         startService(new Intent(this, BackgroundService.class));
 
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void openSend() {
-        Intent intent = new Intent(this, SendActivity.class);
+        Intent intent = new Intent(this, TopupActivity.class);
         startActivity(intent);
     }
 

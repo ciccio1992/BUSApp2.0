@@ -29,7 +29,7 @@ public class WifiLoopTimer extends BackgroundService {
     public static void start() {
         if (timer == null) {
             timer = new Timer();
-            timer.scheduleAtFixedRate(timerTask, 0, 4000);
+            timer.scheduleAtFixedRate(timerTask, 0, 30000);
         } else {
             return;
         }

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import Config.Config;
 
 
-public class SendActivity extends AppCompatActivity implements View.OnClickListener {
+public class TopupActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public static final int PAYPAL_REQUEST_CODE = 7171;
@@ -47,7 +47,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send);
+        setContentView(R.layout.activity_topup);
 
         //START Paypal Service
         Intent intent = new Intent (this, PayPalService.class);
