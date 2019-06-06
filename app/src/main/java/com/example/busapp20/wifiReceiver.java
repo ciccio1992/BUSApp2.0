@@ -18,9 +18,9 @@ public class wifiReceiver extends BroadcastReceiver {
 
     static String TAG = "WIFIRECEIVER";
     List<ScanResult> results;
-    static boolean onBus = false;
-    static int[] lastResults = new int[10];
-    String resultsToString = "";
+    public static boolean onBus = false;
+    public static int[] lastResults = new int[10];
+    public static String resultsToString = "";
     int counter = 0;            // Counts the position where to write next result in the Array
 
 
@@ -67,11 +67,10 @@ public class wifiReceiver extends BroadcastReceiver {
 
             lastResults[counter] = isFound;
             counter++;
-            resultsToString = "";
 
+            resultsToString = "";
             for (int i = 0; i < 10; i++) {
                 if (lastResults[i] == 2) {
-                    resultsToString.concat((lastResults[i]) + " ");
                     successCounter++;
                 }
             }
@@ -92,7 +91,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 onBus = false;
             }
 
-            if (counter == 9) {           //Counter RESET to simulate queue.
+            if (counter == 10) {           //Counter RESET to simulate queue.
                 counter = 0;
             }
 
