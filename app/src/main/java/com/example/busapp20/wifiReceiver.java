@@ -76,17 +76,19 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
             }
 
+
             // 7 out of 10 attempts validated
-            // CODE TO HANDLE YOU ARE ON THE BUS
+            // CODE TO HANDLE YOU ARE MOVING ON THE BUS
 
-            if (successCounter > 3) {
+            if (successCounter > 4 && !onBus) {
+
+                // fronte di salita
+
                 onBus = true;
-                Toast.makeText(context,"YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
-   //             Intent newintent = new Intent(context, MainActivity.class);
-    //            context.startActivity(newintent);
 
-//                WifiLoopTimer.pause();
-            } else {
+                Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
+
+            } else if (successCounter <= 4 && onBus) {
                 onBus = false;
             }
 
