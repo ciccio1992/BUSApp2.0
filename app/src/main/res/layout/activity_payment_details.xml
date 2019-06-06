@@ -42,14 +42,15 @@
 
     <TextView
         android:id="@+id/txtStatus"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
 
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Stato del pagamento: "
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtAmount"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +58,14 @@
 
     <TextView
         android:id="@+id/txtAmount"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Importo Ricarica  "
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtId"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,18 +73,31 @@
 
     <TextView
         android:id="@+id/txtId"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-
         android:layout_marginBottom="32dp"
         android:text="ID Pagamento "
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-</>
+    <TextView
+        android:id="@+id/tvInfoPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="Info transazione:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+</android.support.constraint.ConstraintLayout>
