@@ -71,8 +71,8 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/tvSuccessPayment"
+        app:layout_constraintTop_toTopOf="@+id/tvSuccessPayment" />
 
 
 </android.support.constraint.ConstraintLayout>
