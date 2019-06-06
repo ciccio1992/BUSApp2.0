@@ -2,17 +2,12 @@ package com.example.busapp20;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +20,16 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_history);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_chevron);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lvTravelHistory = findViewById(R.id.lvTravelHistory);
 
@@ -47,8 +50,6 @@ public class HistoryActivity extends AppCompatActivity {
         list.add("27/02/2019 1:16");
         list.add("13/02/2019 17:11");
         list.add("13/02/2019 12:46");
-
-
 
 
         final StableArrayAdapter adapter = new StableArrayAdapter(this,

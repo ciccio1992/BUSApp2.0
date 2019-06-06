@@ -23,6 +23,8 @@ public class ToolsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tools);
 
 
+
+
         btScan = findViewById(R.id.btScan);
         lastResultsRes = findViewById(R.id.tvLastResults);
         onbusres = findViewById(R.id.tvOnbus);
