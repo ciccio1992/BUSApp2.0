@@ -84,7 +84,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
 
                 /// Code to get our previous balance from SharedPreferences
                 SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                float myPrevBalance = prefs.getFloat("Balance", -1);
+                float myPrevBalance = prefs.getFloat("Balance", 0);
                 //
                 //
 
