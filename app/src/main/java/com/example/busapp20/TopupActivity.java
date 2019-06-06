@@ -41,7 +41,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(new Intent (this, PayPalService.class));
+        stopService(new Intent(this, PayPalService.class));
     }
 
     @Override
@@ -50,8 +50,8 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_topup);
 
         //START Paypal Service
-        Intent intent = new Intent (this, PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 
         btnPayNow = findViewById(R.id.btnPayNow);
@@ -67,11 +67,11 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
 
     private void processPayment() {
         amount = edtAmount.getText().toString();
-        PayPalPayment paypalPayment = new PayPalPayment(new BigDecimal(String.valueOf(amount)),"EUR",
+        PayPalPayment paypalPayment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "EUR",
                 "Ricarica il tuo borsellino", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,paypalPayment);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, paypalPayment);
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
     }
 
@@ -79,20 +79,18 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAYPAL_REQUEST_CODE) {
-            if (resultCode== RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 
 
                 /// Code to get our previous balance from SharedPreferences
                 SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
                 float myPrevBalance = prefs.getFloat("Balance", 0);
                 //
-                //
 
 
                 PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if (confirmation != null)
-                {
-                    try{
+                if (confirmation != null) {
+                    try {
                         String paymentDetails = confirmation.toJSONObject().toString(4);
 
                         /// Updating Balance on SharedPreferences
@@ -106,13 +104,11 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", amount)
                         );
-                    }
-                    catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-            }
-            else if (resultCode == Activity.RESULT_CANCELED)
+            } else if (resultCode == Activity.RESULT_CANCELED)
                 Toast.makeText(this, "Ricarica Cancellata", Toast.LENGTH_SHORT).show();
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)
             Toast.makeText(this, "Ricarica Fallita", Toast.LENGTH_SHORT).show();
@@ -120,6 +116,5 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
     }
 }

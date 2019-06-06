@@ -61,13 +61,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        // CONNECTING UI ITEMS TO JAVA
-        /*
-        settingsButton = findViewById(R.id.settingsButton);
-        btEnableWifi = findViewById(R.id.btEnableWifi);
-        btDisableWifi = findViewById(R.id.btDisableWifi);
-        btGetData = findViewById(R.id.btGetStatus);
-        wifiReceiver.tvStatus = findViewById(R.id.tvStatus); */
         balanceAmount = findViewById(R.id.amountValue);
 
 
@@ -76,33 +69,6 @@ public class MainActivity extends AppCompatActivity
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         myReceiver = new wifiReceiver();
         registerReceiver(myReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-
-        // Buttons to Enable\Disable WIFI
-
-
-        /*
-        btEnableWifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                wifiManager.setWifiEnabled(true);
-                Toast.makeText(MainActivity.this, "WiFi Enabled", Toast.LENGTH_SHORT).show();
-                WifiLoopTimer.start();
-            }
-        });
-
-        btDisableWifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                wifiManager.setWifiEnabled(false);
-                Toast.makeText(MainActivity.this, "WiFi Disabled", Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
-
-
-        // This section of code handles the WiFi network search and returns a ListArray with all Networks.
-
-        //  listView = findViewById(R.id.wifiList);
 
     }
 
