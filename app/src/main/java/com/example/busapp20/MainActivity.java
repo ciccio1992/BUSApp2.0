@@ -123,7 +123,9 @@ public class MainActivity extends AppCompatActivity
              openShare();
         } else if (id == R.id.nav_topup) {
              openSend();
-        }
+        } else if (id == R.id.nav_settings) {
+             openSettings();
+         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
