@@ -2,11 +2,11 @@ package com.example.busapp20;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,16 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        /*
+
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back_chevron);
 
@@ -30,6 +39,8 @@ public class HistoryActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        */
 
         lvTravelHistory = findViewById(R.id.lvTravelHistory);
 
@@ -106,6 +117,12 @@ public class HistoryActivity extends AppCompatActivity {
             return true;
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
 

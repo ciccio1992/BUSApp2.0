@@ -20,7 +20,7 @@
 
 
     </string-array>
-    <string name="title_activity_history">Travel History</string>
+    <string name="title_activity_history">Ticket History</string>
     <string name="title_activity_share">Share</string>
     <string name="title_activity_tools"> Development Tools</string>
 
