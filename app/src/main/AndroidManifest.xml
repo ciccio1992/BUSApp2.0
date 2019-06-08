@@ -21,24 +21,34 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ShareActivity"
             android:label="@string/title_activity_share"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ToolsActivity"
             android:label="@string/title_activity_tools"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PaymentDetails" />
-        <activity android:name=".TopupActivity" />
+        <activity
+            android:name=".PaymentDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TopupActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

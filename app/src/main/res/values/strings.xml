@@ -30,11 +30,11 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="appSettings_header">App Settings</string>
+    <string name="ticketSettings_header">Ticket Settings</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
+    <string name="username_title">Your Username</string>
     <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->

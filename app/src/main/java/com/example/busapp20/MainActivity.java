@@ -21,6 +21,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
+
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -31,10 +33,10 @@ public class MainActivity extends AppCompatActivity
 
 
     static WifiManager wifiManager;
-    TextView balanceAmount;
+    TextView balanceAmount, username;
 
     BroadcastReceiver myReceiver = null;
-    public int validatorCounter = 0;
+    // public int validatorCounter = 0;
 
 
     @Override
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity
 
 
         balanceAmount = findViewById(R.id.amountValue);
+
+        username = findViewById(R.id.tvUsernameHome);
 
 
         startService(new Intent(this, BackgroundService.class));
@@ -161,6 +165,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String name = sharedPreferences.getString("signature", "");
+
+        username.setText(name);
+
+
+
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
         balanceAmount.setText(myBalance + " €");

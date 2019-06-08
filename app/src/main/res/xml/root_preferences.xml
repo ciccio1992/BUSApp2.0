@@ -16,11 +16,11 @@
 
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/appSettings_header">
 
         <EditTextPreference
             app:key="signature"
-            app:title="@string/signature_title"
+            app:title="@string/username_title"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -33,7 +33,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/ticketSettings_header">
 
         <SwitchPreferenceCompat
             app:key="sync"
