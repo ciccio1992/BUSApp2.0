@@ -6,27 +6,25 @@
     <string name="nav_header_subtitle">beta</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="background_service">BusApp Background Service</string>
 
+    <!-- MainActivity Titles -->
+    <string name="home_app_by">An App by:\nAndrea Mura\nMarco Piccinini</string>
+    <string name="home_username">Mario Rossi</string>
+
+    <!-- Main Menu Options -->
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_ticket_history">Ticket History</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send feedback</string>
-    <string name="background_service">BusApp Background Service</string>
 
-    <string-array name="mac_addresses">84:80:2d:c3:a0:72;
-        00:3a:98:7d:4a:c2
-
-
-    </string-array>
+    <!-- Main Menu Titles -->
     <string name="title_activity_history">Ticket History</string>
     <string name="title_activity_share">Share</string>
-    <string name="title_activity_tools"> Development Tools</string>
-
-    <string name="busapp_2_0">#BusApp 2.0</string>
-    <string name="an_app_by">An App by:\nAndrea Mura\nMarco Piccinini</string>
-    <string name="username">Mario Rossi</string>
+    <string name="title_activity_tools">Development Tools</string>
+    <string name="title_activity_topUp">TopUp Amount</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -43,5 +41,9 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- topUp Activity -->
+    <string name="topUp_proceed_to_paypal">Proceed to Paypal</string>
+    <string name="topUp_insert_amount">Insert the amount you want to add to your wallet:</string>
 
 </resources>
