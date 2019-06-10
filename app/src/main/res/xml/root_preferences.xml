@@ -19,7 +19,7 @@
     <PreferenceCategory app:title="@string/appSettings_header">
 
         <EditTextPreference
-            app:key="signature"
+            app:key="username"
             app:title="@string/username_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -30,10 +30,12 @@
 
         <SwitchPreferenceCompat
             app:key="autoticket"
-            app:title="@string/autoticket_title" />
+            app:summary="@string/autoticket_title"
+            app:title="Autoticket function" />
 
         <ListPreference
             app:defaultValue="5"
+            app:dependency="autoticket"
             app:entries="@array/autoticket_entries"
             app:entryValues="@array/autoticket_values"
             app:key="level"

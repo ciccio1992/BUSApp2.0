@@ -18,6 +18,8 @@ import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.text.format.DateUtils;
+import android.text.style.TtsSpan;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,13 +31,15 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
@@ -44,8 +48,11 @@ public class MainActivity extends AppCompatActivity
 
 
     public static WifiManager wifiManager;
-    TextView balanceAmount, username, time, time_label;
+    TextView balanceAmount, username;
+    public static TextView time, time_label;
     Button btBuyTicket;
+
+    public static boolean ticketvalid = false;
 
     BroadcastReceiver myReceiver = null;
     // public int validatorCounter = 0;
@@ -62,8 +69,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Not available yet.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                MakeSnackbar(view, "Not available yet.");
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -75,6 +81,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         time = findViewById(R.id.tvTimeLeft);
+        time_label = findViewById(R.id.tvTimeLeftLabel);
+
+        HideTime();
 
         balanceAmount = findViewById(R.id.amountValue);
 
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         btBuyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyTicket(getBaseContext(), v);
+                BuyTicketSnackbarVersion(getBaseContext(), v);
             }
         });
 
@@ -170,7 +179,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        String name = sharedPreferences.getString("signature", "");
+        String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
 
         username.setText(name);
 
@@ -206,66 +215,89 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public static void BuyTicket(@NonNull Context context, View view) {
-        /// Code to get our previous balance from SharedPreferences
-        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        float myPrevBalance = prefs.getFloat("Balance", 0);
-        //
+    public void BuyTicketSnackbarVersion(@NonNull Context context, View view) {
 
-        /// Updating Balance on SharedPreferences
-        float newBalance = (myPrevBalance - 1.5f);
-        if (newBalance >= 0) {
-            SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putFloat("Balance", newBalance);
-            editor.apply();
-            // New Data Applied
+        if (!ticketvalid) {
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);
+
+            // Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);
+            if (newBalance >= 0) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+                MakeSnackbar(view, "Ticket bought correctly!");
+            } else {
+                MakeSnackbar(view, "Not enough money. Please Top-up your account.");
+            }
         } else {
-            Snackbar.make(view, "Not enough money. Please Top-up your account.", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-
-
-    }
-    public static void BuyTicket(@NonNull Context context){
-        /// Code to get our previous balance from SharedPreferences
-        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        float myPrevBalance = prefs.getFloat("Balance", 0);
-        //
-
-        /// Updating Balance on SharedPreferences
-        float newBalance = (myPrevBalance - 1.5f);
-        if (newBalance >= 0) {
-            SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putFloat("Balance", newBalance);
-            editor.apply();
-            // New Data Applied
-        } else {
-            AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
-            AlertBuilder.setMessage("Not enough money for auto-ticket.\nPlease top-up your account.");
-            AlertBuilder.setCancelable(true);
-
-            AlertBuilder.setPositiveButton(
-                    "Ok!",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alertDialog = AlertBuilder.create();
-            alertDialog.show();
-
+            MakeSnackbar(view, "Ticket already bought.");
         }
     }
-    public static void startTicket(){
 
+    public static void BuyTicketAlertDialogVersion(@NonNull Context context) {
+        if (!ticketvalid) {
+            /// Code to get our previous balance from SharedPreferences
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);
+
+            // Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);
+            if (newBalance >= 0) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+            } else {
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\nPlease top-up your account.");
+            }
+        }
     }
 
-    public static void stopTicket(){
 
+    private static void startTicket() {
+        Showtime();
+        ticketvalid = true;
     }
 
+    private void stopTicket() {
+        HideTime();
+        ticketvalid = false;
+    }
 
+    private static void MakeSnackbar(View view, String string) {
+        Snackbar.make(view, string, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    public static void MakeAlertDialog(Context context, String string) {
+        AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
+        AlertBuilder.setMessage(string);
+        AlertBuilder.setCancelable(true);
+        AlertBuilder.setPositiveButton(
+                "Ok!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = AlertBuilder.create();
+        alertDialog.show();
+    }
+
+    private static void Showtime() {
+        time.setVisibility(View.VISIBLE);
+        time_label.setVisibility(View.VISIBLE);
+    }
+
+    private static void HideTime() {
+        time.setVisibility(View.INVISIBLE);
+        time_label.setVisibility(View.INVISIBLE);
+    }
 
 }
 

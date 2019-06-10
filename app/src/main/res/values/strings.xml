@@ -2,7 +2,7 @@
     <string name="app_name">BusApp v2.0</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Bus App 2.0</string>
+    <string name="nav_header_title">BusApp 2.0</string>
     <string name="nav_header_subtitle">beta</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -10,20 +10,18 @@
 
     <!-- MainActivity Titles -->
     <string name="home_app_by">An App by:\nAndrea Mura\nMarco Piccinini</string>
-    <string name="home_username">Mario Rossi</string>
 
     <!-- Main Menu Options -->
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
     <string name="menu_ticket_history">Ticket History</string>
-    <string name="menu_tools">Tools</string>
+    <string name="menu_tools">Developers Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send feedback</string>
 
     <!-- Main Menu Titles -->
     <string name="title_activity_history">Ticket History</string>
     <string name="title_activity_share">Share</string>
-    <string name="title_activity_tools">Development Tools</string>
+    <string name="title_activity_tools">Developers Tools</string>
     <string name="title_activity_topUp">TopUp Amount</string>
     <string name="title_activity_settings">Settings</string>
 
@@ -41,5 +39,6 @@
     <!-- topUp Activity -->
     <string name="topUp_proceed_to_paypal">Proceed to Paypal</string>
     <string name="topUp_insert_amount">Insert the amount you want to add to your wallet:</string>
+    <string name="go_to_settings"> go to settings!</string>
 
 </resources>

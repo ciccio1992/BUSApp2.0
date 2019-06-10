@@ -88,7 +88,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Go to settings!"
+        android:text="@string/go_to_settings"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
@@ -124,10 +124,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3TimeLeftLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeLeftLabel" />
 
     <TextView
-        android:id="@+id/textView3TimeLeftLabel"
+        android:id="@+id/tvTimeLeftLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
