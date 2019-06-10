@@ -1,12 +1,17 @@
 package com.example.busapp20;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,15 +71,36 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processPayment();
+                amount = edtAmount.getText().toString();
+
+                if (amount.isEmpty() || Integer.valueOf(amount) < 1) {
+                    AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(TopupActivity.this);
+                    AlertBuilder.setMessage("Please insert a valid amount.");
+                    AlertBuilder.setTitle("Error");
+                    AlertBuilder.setCancelable(true);
+                    AlertBuilder.setPositiveButton("Close", new DialogInterface
+                            .OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    AlertDialog alertDialog = AlertBuilder.create();
+                    alertDialog.show();
+                } else {
+                    processPayment();
+
+                }
             }
         });
     }
 
     private void processPayment() {
-        amount = edtAmount.getText().toString();
         PayPalPayment paypalPayment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "EUR",
-                "Ricarica il tuo borsellino", PayPalPayment.PAYMENT_INTENT_SALE);
+                "Put money in your wallet", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, paypalPayment);
@@ -114,6 +140,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                         e.printStackTrace();
                     }
                 }
+                finish();
             } else if (resultCode == Activity.RESULT_CANCELED)
                 Toast.makeText(this, "Ricarica Cancellata", Toast.LENGTH_SHORT).show();
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)

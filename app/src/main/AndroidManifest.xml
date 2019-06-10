@@ -64,16 +64,16 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".wifiReceiver"
+            android:name=".Background.wifiReceiver"
             android:enabled="true"
             android:exported="true" />
 
         <service
-            android:name=".BackgroundService"
+            android:name=".Background.BackgroundService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".WifiLoopTimer"
+            android:name=".Background.WifiLoopTimer"
             android:enabled="true"
             android:exported="true" />
     </application>

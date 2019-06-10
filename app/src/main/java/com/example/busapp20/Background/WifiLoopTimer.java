@@ -1,9 +1,11 @@
-package com.example.busapp20;
+package com.example.busapp20.Background;
 
 import android.content.Intent;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
 import android.util.Log;
+
+import com.example.busapp20.MainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;

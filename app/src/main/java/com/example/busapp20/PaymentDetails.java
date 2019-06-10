@@ -1,8 +1,12 @@
 package com.example.busapp20;
 
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -11,6 +15,7 @@ import org.json.JSONObject;
 public class PaymentDetails extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus;
+    Button btPaymentHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +25,7 @@ public class PaymentDetails extends AppCompatActivity {
         txtId = findViewById(R.id.txtId);
         txtAmount = findViewById(R.id.txtAmount);
         txtStatus = findViewById(R.id.txtStatus);
+        btPaymentHome = findViewById(R.id.btPaymentHome);
 
 
         //Get Intent
@@ -32,6 +38,13 @@ public class PaymentDetails extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        btPaymentHome.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void showDetails(JSONObject response, String paymentAmount) {

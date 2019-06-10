@@ -23,28 +23,22 @@
             app:title="@string/username_title"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/ticketSettings_header">
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+            app:key="autoticket"
+            app:title="@string/autoticket_title" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <ListPreference
+            app:defaultValue="5"
+            app:entries="@array/autoticket_entries"
+            app:entryValues="@array/autoticket_values"
+            app:key="level"
+            app:title="@string/autoticket_level_title"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

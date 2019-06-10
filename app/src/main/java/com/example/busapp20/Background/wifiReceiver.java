@@ -1,4 +1,4 @@
-package com.example.busapp20;
+package com.example.busapp20.Background;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -9,7 +9,12 @@ import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.example.busapp20.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,36 +96,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 onBus = true;
                 Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
 
-                /// Code to get our previous balance from SharedPreferences
-                SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                float myPrevBalance = prefs.getFloat("Balance", 0);
-                //
-
-                /// Updating Balance on SharedPreferences
-                float newBalance = (myPrevBalance - 1.5f);
-                if (newBalance >= 0) {
-                    SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                    editor.putFloat("Balance", newBalance);
-                    editor.apply();
-                    // New Data Applied
-                }
-                else {
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                    builder1.setMessage("Not enough money to buy a ticket. \nPlease TOP-UP first and buy it manually!");
-                    builder1.setCancelable(true);
-
-                    builder1.setNeutralButton(
-                            "Ok!",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
-
+                MainActivity.BuyTicket(context);
 
             } else if (successCounter <= 4 && onBus) {
                 onBus = false;
@@ -133,4 +109,6 @@ public class wifiReceiver extends BroadcastReceiver {
 
         }
     }
+
+
 }

@@ -1,8 +1,10 @@
 package com.example.busapp20;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -10,20 +12,29 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.example.busapp20.Background.BackgroundService;
+import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
 import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import android.view.MenuItem;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
-import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
@@ -32,8 +43,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    static WifiManager wifiManager;
+    public static WifiManager wifiManager;
     TextView balanceAmount, username;
+    Button btBuyTicket;
 
     BroadcastReceiver myReceiver = null;
     // public int validatorCounter = 0;
@@ -67,6 +79,15 @@ public class MainActivity extends AppCompatActivity
 
         username = findViewById(R.id.tvUsernameHome);
 
+        btBuyTicket = findViewById(R.id.btBuyTicket);
+
+        btBuyTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuyTicket(getBaseContext(), v);
+            }
+        });
+
 
         startService(new Intent(this, BackgroundService.class));
 
@@ -87,24 +108,23 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-         if (id == R.id.nav_history) {
+        if (id == R.id.nav_history) {
             openHistory();
         } else if (id == R.id.nav_tools) {
             openTools();
         } else if (id == R.id.nav_share) {
-             openShare();
+            openShare();
         } else if (id == R.id.nav_topup) {
-             openSend();
+            openSend();
         } else if (id == R.id.nav_settings) {
-             openSettings();
-         }
+            openSettings();
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -154,7 +174,6 @@ public class MainActivity extends AppCompatActivity
         username.setText(name);
 
 
-
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
         balanceAmount.setText(myBalance + " €");
@@ -181,15 +200,69 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void openSettings(){
+    public void openSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+    public static void BuyTicket(@NonNull Context context, View view) {
+        /// Code to get our previous balance from SharedPreferences
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        float myPrevBalance = prefs.getFloat("Balance", 0);
+        //
+
+        /// Updating Balance on SharedPreferences
+        float newBalance = (myPrevBalance - 1.5f);
+        if (newBalance >= 0) {
+            SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putFloat("Balance", newBalance);
+            editor.apply();
+            // New Data Applied
+        } else {
+            Snackbar.make(view, "Not enough money. Please Top-up your account.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
+    }
+    public static void BuyTicket(@NonNull Context context){
+        /// Code to get our previous balance from SharedPreferences
+        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        float myPrevBalance = prefs.getFloat("Balance", 0);
+        //
+
+        /// Updating Balance on SharedPreferences
+        float newBalance = (myPrevBalance - 1.5f);
+        if (newBalance >= 0) {
+            SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putFloat("Balance", newBalance);
+            editor.apply();
+            // New Data Applied
+        } else {
+            AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
+            AlertBuilder.setMessage("Not enough money for auto-ticket.\nPlease top-up your account.");
+            AlertBuilder.setCancelable(true);
+
+            AlertBuilder.setPositiveButton(
+                    "Ok!",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = AlertBuilder.create();
+            alertDialog.show();
+
+        }
+    }
+    public static void startTicket(){
+
+    }
+
+    public static void stopTicket(){
+
+    }
+
 }
 
 /*

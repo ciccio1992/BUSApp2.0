@@ -1,4 +1,4 @@
-package com.example.busapp20;
+package com.example.busapp20.Background;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,6 +12,9 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import android.widget.Toast;
+
+import com.example.busapp20.MainActivity;
+import com.example.busapp20.R;
 
 
 public class BackgroundService extends Service {

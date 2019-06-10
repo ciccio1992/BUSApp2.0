@@ -33,14 +33,10 @@
 
     <!-- Messages Preferences -->
     <string name="username_title">Your Username</string>
-    <string name="reply_title">Default reply action</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- Autoticket Preferences -->
+    <string name="autoticket_title">Buy the ticket automatically</string>
+    <string name="autoticket_level_title">Autoticket sensibility</string>
 
     <!-- topUp Activity -->
     <string name="topUp_proceed_to_paypal">Proceed to Paypal</string>

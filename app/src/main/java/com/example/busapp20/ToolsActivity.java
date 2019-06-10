@@ -9,9 +9,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import static com.example.busapp20.MainActivity.wifiManager;
-import static com.example.busapp20.wifiReceiver.lastResults;
-import static com.example.busapp20.wifiReceiver.onBus;
-import static com.example.busapp20.wifiReceiver.resultsToString;
+import static com.example.busapp20.Background.wifiReceiver.lastResults;
+import static com.example.busapp20.Background.wifiReceiver.onBus;
+import static com.example.busapp20.Background.wifiReceiver.resultsToString;
 
 public class ToolsActivity extends AppCompatActivity {
 

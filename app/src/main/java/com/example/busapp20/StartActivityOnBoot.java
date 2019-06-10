@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.example.busapp20.Background.BackgroundService;
 
 public class StartActivityOnBoot extends BroadcastReceiver {
 
