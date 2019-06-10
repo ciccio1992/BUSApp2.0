@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public static WifiManager wifiManager;
-    TextView balanceAmount, username;
+    TextView balanceAmount, username, time, time_label;
     Button btBuyTicket;
 
     BroadcastReceiver myReceiver = null;
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        time = findViewById(R.id.tvTimeLeft);
 
         balanceAmount = findViewById(R.id.amountValue);
 
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity
                     .setAction("Action", null).show();
         }
 
+
     }
     public static void BuyTicket(@NonNull Context context){
         /// Code to get our previous balance from SharedPreferences
@@ -262,6 +264,8 @@ public class MainActivity extends AppCompatActivity
     public static void stopTicket(){
 
     }
+
+
 
 }
 
