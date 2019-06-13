@@ -3,14 +3,11 @@ package com.example.busapp20;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -29,12 +26,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.preference.PreferenceManager;
 
 import com.example.busapp20.Background.BackgroundService;
-import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.sql.Time;
+import java.util.Locale;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
@@ -48,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     Button btBuyTicket;
 
     public static boolean ticketvalid = false;
-
 
 
     @Override
@@ -91,7 +86,6 @@ public class MainActivity extends AppCompatActivity
 
 
         startService(new Intent(this, BackgroundService.class));
-
 
 
     }
@@ -175,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(Rounding(myBalance,2) + " €");
+        balanceAmount.setText(Rounding(myBalance, 2) + " €");
     }
 
 
@@ -220,22 +214,8 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
-
-                new CountDownTimer(3600000, 1000) {     //Ticket timer implementation
-                    public void onTick(long millisUntilFinished) {
-                        int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
-                        int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
-                        int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
-                        String timeString = hours + ":"+minutes+":"+seconds;
-                        time.setText(timeString);
-                    }
-
-                    public void onFinish() {
-                        stopTicket();       // On time finish run function routine.
-                    }
-                }.start();
-
                 MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
+
             } else {
                 MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
             }
@@ -260,9 +240,10 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
+
             } else {
                 MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
-                                                "Please top-up your account.");
+                        "Please top-up your account.");
             }
         }
     }
@@ -271,11 +252,28 @@ public class MainActivity extends AppCompatActivity
     private static void startTicket() {
         Showtime();
         ticketvalid = true;
+        startTimer();
     }
 
-    private void stopTicket() {
+    private static void stopTicket() {
         HideTime();
         ticketvalid = false;
+    }
+
+    private static void startTimer() {
+
+        new CountDownTimer(360000, 1000) {     //Ticket timer implementation
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
+                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                time.setText(String.format(Locale.ITALY, "%02d : %02d : %02d", hours, minutes, seconds));
+            }
+
+            public void onFinish() {
+                stopTicket();       // On time finish run function routine.
+            }
+        }.start();
     }
 
     /// Creates a Snackbar!
@@ -307,13 +305,13 @@ public class MainActivity extends AppCompatActivity
 
     private static void HideTime() {
 
-        Log.i("MAIN","Now Timer should be set hidden!");
+        Log.i("MAIN", "Now Timer should be set hidden!");
         time.setVisibility(View.INVISIBLE);
         time_label.setVisibility(View.INVISIBLE);
     }
 
     // Rounding method
-    public static double Rounding (double value, int numCifreDecimali) {
+    public static double Rounding(double value, int numCifreDecimali) {
         double temp = Math.pow(10, numCifreDecimali);
         return Math.round(value * temp) / temp;
     }
