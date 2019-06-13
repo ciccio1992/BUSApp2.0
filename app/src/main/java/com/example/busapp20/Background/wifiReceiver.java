@@ -1,5 +1,4 @@
 package com.example.busapp20.Background;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,18 +8,14 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.preference.PreferenceManager;
-
 import com.example.busapp20.MainActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import static java.lang.Integer.valueOf;
 
-/*
+
 public class wifiReceiver extends BroadcastReceiver {
 
 
@@ -29,6 +24,8 @@ public class wifiReceiver extends BroadcastReceiver {
     public static boolean onBus = false;
     public static int[] lastResults = new int[10];
     public static String resultsToString = "";
+    public static ArrayList<String> arrayList = null;
+
     int counter = 0;            // Counts the position where to write next result in the Array
 
 
@@ -47,7 +44,7 @@ public class wifiReceiver extends BroadcastReceiver {
 
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             results = wifiManager.getScanResults();
-            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList = new ArrayList<>();
             int isFound = 0;
 
             // This is to count the number of successful Wi-Fi scans.
@@ -91,7 +88,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
 
 
-                // 7 out of 10 attempts validated
+                // (sensibility) out of 10 attempts validated
                 // CODE TO HANDLE YOU ARE MOVING ON THE BUS
 
                 if (successCounter >= sensibility && !onBus) {
@@ -101,20 +98,20 @@ public class wifiReceiver extends BroadcastReceiver {
                     onBus = true;
                     Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
 
-                    MainActivity.BuyTicketAlertDialogVersion(context);
-
-
-//We give input to the app to launch main activity
+                    // We give input to the app to launch main activity
                     PackageManager pm = context.getPackageManager();
                     String packageName = "com.example.busapp20";
 
                     Intent i = pm.getLaunchIntentForPackage(packageName);
-                    if (i != null){
+                    if(i!=null){
                         context.startActivity(i);
-                    }else
-                        Log.i(TAG, "Error open APP");
+                    } else{
+                        Log.i(TAG, "Error opening the app automatically");
+                    }
 
-                } else if (successCounter <= 4 && onBus) {
+                    MainActivity.BuyTicketAlertDialogVersion(context);
+
+                } else if (successCounter <= sensibility && onBus) {
                     onBus = false;
                 }
 
@@ -125,5 +122,3 @@ public class wifiReceiver extends BroadcastReceiver {
         }
     }
 }
-
-*/
