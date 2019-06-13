@@ -14,6 +14,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +76,6 @@ public class MainActivity extends AppCompatActivity
 
         time = findViewById(R.id.tvTimeLeft);
         time_label = findViewById(R.id.tvTimeLeftLabel);
-
-        HideTime();
 
         balanceAmount = findViewById(R.id.amountValue);
 
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(myBalance + " €");
+        balanceAmount.setText(Rounding(myBalance,2) + " €");
     }
 
 
@@ -264,7 +263,8 @@ public class MainActivity extends AppCompatActivity
                 // New Data Applied
                 startTicket();
             } else {
-                MakeAlertDialog(context, "Not enough money for auto-ticket.\nPlease top-up your account.");
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
+                                                "Please top-up your account.");
             }
         }
     }
@@ -280,11 +280,13 @@ public class MainActivity extends AppCompatActivity
         ticketvalid = false;
     }
 
+    /// Creates a Snackbar!
     private static void MakeSnackbar(View view, String string) {
         Snackbar.make(view, string, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
+    /// DEPRECATED: Creates a popup with a single button.
     public static void MakeAlertDialog(Context context, String string) {
         AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
         AlertBuilder.setMessage(string);
@@ -306,12 +308,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private static void HideTime() {
+
+        Log.i("MAIN","Now Timer should be set hidden!");
         time.setVisibility(View.INVISIBLE);
         time_label.setVisibility(View.INVISIBLE);
     }
 
-}
+    // Rounding method
+    public static double Rounding (double value, int numCifreDecimali) {
+        double temp = Math.pow(10, numCifreDecimali);
+        return Math.round(value * temp) / temp;
+    }
 
-/*
-if
- */
+}
