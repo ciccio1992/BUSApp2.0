@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,8 @@ import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.sql.Time;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
@@ -71,8 +75,6 @@ public class MainActivity extends AppCompatActivity
 
         time = findViewById(R.id.tvTimeLeft);
         time_label = findViewById(R.id.tvTimeLeftLabel);
-
-        HideTime();
 
         balanceAmount = findViewById(R.id.amountValue);
 
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(myBalance + " €");
+        balanceAmount.setText(Rounding(myBalance,2) + " €");
     }
 
 
@@ -218,6 +220,21 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
+
+                new CountDownTimer(3600000, 1000) {     //Ticket timer implementation
+                    public void onTick(long millisUntilFinished) {
+                        int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
+                        int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                        int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                        String timeString = hours + ":"+minutes+":"+seconds;
+                        time.setText(timeString);
+                    }
+
+                    public void onFinish() {
+                        stopTicket();       // On time finish run function routine.
+                    }
+                }.start();
+
                 MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
             } else {
                 MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
@@ -244,7 +261,8 @@ public class MainActivity extends AppCompatActivity
                 // New Data Applied
                 startTicket();
             } else {
-                MakeAlertDialog(context, "Not enough money for auto-ticket.\nPlease top-up your account.");
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
+                                                "Please top-up your account.");
             }
         }
     }
@@ -260,11 +278,13 @@ public class MainActivity extends AppCompatActivity
         ticketvalid = false;
     }
 
+    /// Creates a Snackbar!
     private static void MakeSnackbar(View view, String string) {
         Snackbar.make(view, string, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
+    /// DEPRECATED: Creates a popup with a single button.
     public static void MakeAlertDialog(Context context, String string) {
         AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
         AlertBuilder.setMessage(string);
@@ -286,12 +306,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private static void HideTime() {
+
+        Log.i("MAIN","Now Timer should be set hidden!");
         time.setVisibility(View.INVISIBLE);
         time_label.setVisibility(View.INVISIBLE);
     }
 
-}
+    // Rounding method
+    public static double Rounding (double value, int numCifreDecimali) {
+        double temp = Math.pow(10, numCifreDecimali);
+        return Math.round(value * temp) / temp;
+    }
 
-/*
-if
- */
+}

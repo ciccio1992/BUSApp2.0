@@ -126,9 +126,11 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                         String paymentDetails = confirmation.toJSONObject().toString(4);
 
                         /// Updating Balance on SharedPreferences
-                        float newBalance = myPrevBalance + new Float(String.valueOf(amount));
+                        float newBalance = myPrevBalance + new Float(Double.valueOf(amount));
+                        float newFloatBalance = Float.valueOf(newBalance);
+
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                        editor.putFloat("Balance", newBalance);
+                        editor.putFloat("Balance", newFloatBalance);
                         editor.apply();
                         // New Data Applied
 
