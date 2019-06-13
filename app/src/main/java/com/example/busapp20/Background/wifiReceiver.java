@@ -1,4 +1,5 @@
 package com.example.busapp20.Background;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +8,15 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.preference.PreferenceManager;
+
 import com.example.busapp20.MainActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import static java.lang.Integer.valueOf;
 
 
@@ -85,7 +90,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
 
 
-                // 7 out of 10 attempts validated
+                // (sensibility) out of 10 attempts validated
                 // CODE TO HANDLE YOU ARE MOVING ON THE BUS
 
                 if (successCounter >= sensibility && !onBus) {
@@ -97,7 +102,7 @@ public class wifiReceiver extends BroadcastReceiver {
 
                     MainActivity.BuyTicketAlertDialogVersion(context);
 
-                } else if (successCounter <= 4 && onBus) {
+                } else if (successCounter <= sensibility && onBus) {
                     onBus = false;
                 }
 
