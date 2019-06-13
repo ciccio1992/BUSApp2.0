@@ -59,7 +59,6 @@ public class BackgroundService extends Service {
         Toast.makeText(this, "Autoticket Service Started", Toast.LENGTH_SHORT).show();
 
         return START_STICKY;
-
     }
 
 

@@ -104,10 +104,11 @@ public class wifiReceiver extends BroadcastReceiver {
                 onBus = true;
                 Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
 
-                PackageManager pm = context.getPackageManager();
-                String packageName = "com.example.busapp20";
 
-                if (autoopen) {
+                if (autoopen) { // We give input to the app to launch main activity
+                    PackageManager pm = context.getPackageManager();
+                    String packageName = "com.example.busapp20";
+
                     Intent i = pm.getLaunchIntentForPackage(packageName);
                     if (i != null) {
                         context.startActivity(i);
@@ -129,6 +130,5 @@ public class wifiReceiver extends BroadcastReceiver {
             }
         }
     }
-
-
 }
+
