@@ -34,7 +34,7 @@
 
     <!-- Autoticket Preferences -->
     <string name="autoticket_title">Buy the ticket automatically</string>
-    <string name="autoticket_level_title">Autoticket sensibility</string>
+    <string name="wifi_sensibility_title">Wifi sensibility</string>
 
     <!-- topUp Activity -->
     <string name="topUp_proceed_to_paypal">Proceed to Paypal</string>

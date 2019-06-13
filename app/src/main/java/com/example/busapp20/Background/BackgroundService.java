@@ -31,7 +31,7 @@ public class BackgroundService extends Service {
         wifiManager = (WifiManager) this.getApplicationContext().getSystemService(WIFI_SERVICE);
 
         super.onCreate();
-        WifiLoopTimer.start(wifiManager);
+        WifiLoopTimer.start(wifiManager, this);
 
     }
 

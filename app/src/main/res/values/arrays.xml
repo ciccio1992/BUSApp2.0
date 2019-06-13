@@ -23,6 +23,7 @@
         <item>10%</item>
         <item>0%</item>
     </string-array>
+
     <string-array name="autoticket_values">
         <item>0</item>
         <item>1</item>
@@ -36,4 +37,21 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+
+    <string-array name="scan_frequency_entries">
+        <item>Very fast (2s)</item>
+        <item>Fast (4s)</item>
+        <item>Normal (6s)</item>
+        <item>Slow (8s)</item>
+        <item>Very slow (10s)</item>
+    </string-array>
+
+    <string-array name="scan_frequency_values">
+        <item>2000</item>
+        <item>4000</item>
+        <item>6000</item>
+        <item>8000</item>
+        <item>10000</item>
+    </string-array>
+
 </resources>
