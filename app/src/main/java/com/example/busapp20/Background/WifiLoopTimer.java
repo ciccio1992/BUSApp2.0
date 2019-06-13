@@ -21,7 +21,6 @@ public class WifiLoopTimer extends BackgroundService {
 
 
     private static Timer timer;
-    private static TimerTask timerTask;
 
 
     public static void start(final WifiManager wifiManager, Context context) {
@@ -33,7 +32,7 @@ public class WifiLoopTimer extends BackgroundService {
 
         if (timer == null) {
             timer = new Timer();
-            timerTask = new TimerTask() {
+            TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
                     wifiManager.startScan();
