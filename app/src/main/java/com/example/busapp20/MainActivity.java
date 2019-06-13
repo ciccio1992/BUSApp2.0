@@ -215,29 +215,33 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+
+    ///***  NEW Function. Same as following but uses snackbar instead of old popup.
     public void BuyTicketSnackbarVersion(@NonNull Context context, View view) {
 
-        if (!ticketvalid) {
+        if (!ticketvalid) {     //We check whether if the user already nb
             SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            float myPrevBalance = prefs.getFloat("Balance", 0);
+            float myPrevBalance = prefs.getFloat("Balance", 0);     // Retrieving our current balance from SharedPrefs.
 
-            // Updating Balance on SharedPreferences
-            float newBalance = (myPrevBalance - 1.5f);
-            if (newBalance >= 0) {
+            /// Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);      //Price of ticket taken from balance.
+            if (newBalance >= 0) {                          //Positive balance check, if balance becomes negative you are unable to buy a ticket.
                 SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putFloat("Balance", newBalance);
                 editor.apply();
                 // New Data Applied
                 startTicket();
-                MakeSnackbar(view, "Ticket bought correctly!");
+                MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
             } else {
-                MakeSnackbar(view, "Not enough money. Please Top-up your account.");
+                MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
             }
         } else {
-            MakeSnackbar(view, "Ticket already bought.");
+            MakeSnackbar(view, "Ticket already bought.");           // You failed because tickevalid is true = you already have a valid ticket.
         }
     }
 
+
+    ///***  DEPRECATED Function. Used to show a popup instead of a snackbar.
     public static void BuyTicketAlertDialogVersion(@NonNull Context context) {
         if (!ticketvalid) {
             /// Code to get our previous balance from SharedPreferences

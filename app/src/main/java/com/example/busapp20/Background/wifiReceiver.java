@@ -1,20 +1,26 @@
 package com.example.busapp20.Background;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.preference.PreferenceManager;
+
 import com.example.busapp20.MainActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import static java.lang.Integer.valueOf;
 
-
+/*
 public class wifiReceiver extends BroadcastReceiver {
 
 
@@ -97,6 +103,17 @@ public class wifiReceiver extends BroadcastReceiver {
 
                     MainActivity.BuyTicketAlertDialogVersion(context);
 
+
+//We give input to the app to launch main activity
+                    PackageManager pm = context.getPackageManager();
+                    String packageName = "com.example.busapp20";
+
+                    Intent i = pm.getLaunchIntentForPackage(packageName);
+                    if (i != null){
+                        context.startActivity(i);
+                    }else
+                        Log.i(TAG, "Error open APP");
+
                 } else if (successCounter <= 4 && onBus) {
                     onBus = false;
                 }
@@ -107,5 +124,6 @@ public class wifiReceiver extends BroadcastReceiver {
             }
         }
     }
-
 }
+
+*/
