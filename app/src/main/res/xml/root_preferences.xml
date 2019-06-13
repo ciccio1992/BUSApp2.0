@@ -23,23 +23,39 @@
             app:title="@string/username_title"
             app:useSimpleSummaryProvider="true" />
 
-
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/ticketSettings_header">
+
+        <SwitchPreferenceCompat
+            app:key="autoopen"
+            app:summary="When your entry on the bus is confirmed"
+            app:title="Open the app automatically" />
+
+        <ListPreference
+            app:defaultValue="5"
+            app:entries="@array/autoticket_entries"
+            app:entryValues="@array/autoticket_values"
+            app:key="level"
+            app:title="@string/wifi_sensibility_title"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             app:key="autoticket"
             app:summary="@string/autoticket_title"
             app:title="Autoticket function" />
 
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Wifi and Battery Settings">
+
         <ListPreference
-            app:defaultValue="5"
-            app:dependency="autoticket"
-            app:entries="@array/autoticket_entries"
-            app:entryValues="@array/autoticket_values"
-            app:key="level"
-            app:title="@string/autoticket_level_title"
+            app:defaultValue="6000"
+            app:entries="@array/scan_frequency_entries"
+            app:entryValues="@array/scan_frequency_values"
+            app:key="frequency"
+            app:title="Wifi Scans Frequency"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
