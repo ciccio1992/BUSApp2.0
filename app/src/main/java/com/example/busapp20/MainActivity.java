@@ -1,6 +1,7 @@
 package com.example.busapp20;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,34 +13,24 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.PreferenceManager;
 
 import com.example.busapp20.Background.BackgroundService;
 import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.text.format.DateUtils;
-import android.text.style.TtsSpan;
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import android.view.MenuItem;
-
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.preference.PreferenceManager;
-
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TextView;
-
-import java.util.Date;
+import com.google.android.material.snackbar.Snackbar;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
@@ -47,15 +38,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    public static WifiManager wifiManager;
     TextView balanceAmount, username;
+    @SuppressLint("StaticFieldLeak")
     public static TextView time, time_label;
     Button btBuyTicket;
 
     public static boolean ticketvalid = false;
 
     BroadcastReceiver myReceiver = null;
-    // public int validatorCounter = 0;
 
 
     @Override
@@ -101,7 +91,6 @@ public class MainActivity extends AppCompatActivity
 
         startService(new Intent(this, BackgroundService.class));
 
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         myReceiver = new wifiReceiver();
         registerReceiver(myReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
@@ -118,9 +107,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -173,6 +161,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHAREDPREFS
+    @SuppressLint("SetTextI18n")
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

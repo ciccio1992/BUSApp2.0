@@ -1,11 +1,11 @@
 package com.example.busapp20.Background;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import androidx.annotation.Nullable;
 import android.util.Log;
 
-import com.example.busapp20.MainActivity;
+import androidx.annotation.Nullable;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,25 +15,22 @@ public class WifiLoopTimer extends BackgroundService {
 
 
     private static Timer timer;
-    private static TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-
-            MainActivity.wifiManager.startScan();
-            Log.i("WIFILOOPTIMER", "SCAN RUN AUTOMATICALLY");
-        }
-    };
+    private static TimerTask timerTask;
 
 
-    public static void start() {
+    public static void start(final WifiManager wifiManager) {
         if (timer == null) {
             timer = new Timer();
-            timer.scheduleAtFixedRate(timerTask, 0, 7000);
-        } else {
-            return;
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    wifiManager.startScan();
+                    Log.i("WIFILOOPTIMER", "SCAN RUN AUTOMATICALLY");
+                }
+            };
+            timer.scheduleAtFixedRate(timerTask, 0, 7000); ///INSERIRE IN SETTINGS
         }
     }
-
 
 
     public static void stop() {

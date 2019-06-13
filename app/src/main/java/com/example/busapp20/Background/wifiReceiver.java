@@ -28,6 +28,8 @@ public class wifiReceiver extends BroadcastReceiver {
     public static boolean onBus = false;
     public static int[] lastResults = new int[10];
     public static String resultsToString = "";
+    public static ArrayList<String> arrayList = null;
+
     int counter = 0;            // Counts the position where to write next result in the Array
 
 
@@ -46,7 +48,7 @@ public class wifiReceiver extends BroadcastReceiver {
 
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             results = wifiManager.getScanResults();
-            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList = new ArrayList<>();
             int isFound = 0;
 
             // This is to count the number of successful Wi-Fi scans.
