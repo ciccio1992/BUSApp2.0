@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import com.example.busapp20.Background.wifiReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.sql.Time;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 
@@ -220,6 +223,21 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
+
+                new CountDownTimer(3600000, 1000) {     //Ticket timer implementation
+                    public void onTick(long millisUntilFinished) {
+                        int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
+                        int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                        int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                        String timeString = hours + ":"+minutes+":"+seconds;
+                        time.setText(timeString);
+                    }
+
+                    public void onFinish() {
+                        stopTicket();       // On time finish run function routine.
+                    }
+                }.start();
+
                 MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
             } else {
                 MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
