@@ -24,11 +24,9 @@ public class WifiLoopTimer extends BackgroundService {
 
 
     public static void start(final WifiManager wifiManager, Context context) {
-        SharedPreferences sharedPreferences =
+        final SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-
         int frequency = valueOf(Objects.requireNonNull(sharedPreferences.getString("frequency", "6000")));
-
 
         if (timer == null) {
             timer = new Timer();
@@ -36,17 +34,16 @@ public class WifiLoopTimer extends BackgroundService {
                 @Override
                 public void run() {
                     wifiManager.startScan();
-                    Log.i("WIFILOOPTIMER", "SCAN RUN AUTOMATICALLY");
+                    Log.i("WIFILOOPTIMER", "startScan()");
                 }
             };
-            timer.scheduleAtFixedRate(timerTask, 0, frequency); ///INSERIRE IN SETTINGS
+            timer.scheduleAtFixedRate(timerTask, 0, frequency);
         }
     }
 
 
     public static void stop() {
         timer.cancel();
-        timer = null;
     }
 
     @Nullable

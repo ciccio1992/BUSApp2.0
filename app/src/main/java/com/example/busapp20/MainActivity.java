@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
 
     public static boolean ticketvalid = false;
 
-    BroadcastReceiver myReceiver = null;
 
 
     @Override
@@ -91,8 +90,7 @@ public class MainActivity extends AppCompatActivity
 
         startService(new Intent(this, BackgroundService.class));
 
-        myReceiver = new wifiReceiver();
-        registerReceiver(myReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+
 
     }
 

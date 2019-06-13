@@ -102,7 +102,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 // fronte di salita
 
                 onBus = true;
-                Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
 
 
                 if (autoopen) { // We give input to the app to launch main activity

@@ -5,7 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -22,6 +24,8 @@ public class BackgroundService extends Service {
 
     private static final String CHANNEL_ID = "BusAppServiceChannel";
     public static WifiManager wifiManager;
+    BroadcastReceiver myReceiver = null;
+
 
     @Override
     public void onCreate() {
@@ -30,6 +34,9 @@ public class BackgroundService extends Service {
 
         super.onCreate();
         WifiLoopTimer.start(wifiManager, this);
+
+        myReceiver = new wifiReceiver();
+        registerReceiver(myReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
     }
 

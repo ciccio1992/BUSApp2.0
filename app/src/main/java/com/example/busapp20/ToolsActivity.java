@@ -69,7 +69,7 @@ public class ToolsActivity extends AppCompatActivity {
 
         if (!(arrayList.isEmpty())) {
 
-            lvWifiScan.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList));
+            lvWifiScan.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList));
 
 
         }
