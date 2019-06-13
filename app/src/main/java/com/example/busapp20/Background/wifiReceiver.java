@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -101,6 +102,16 @@ public class wifiReceiver extends BroadcastReceiver {
 
                     onBus = true;
                     Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
+
+                    PackageManager pm = context.getPackageManager();
+                    String packageName = "com.example.busapp20";
+
+                    Intent i = pm.getLaunchIntentForPackage(packageName);
+                    if(i!=null){
+                        context.startActivity(i);
+                    } else{
+                        Log.i(TAG, "Error opening the app automatically");
+                    }
 
                     MainActivity.BuyTicketAlertDialogVersion(context);
 
