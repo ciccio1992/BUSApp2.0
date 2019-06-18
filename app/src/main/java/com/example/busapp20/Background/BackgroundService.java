@@ -24,6 +24,11 @@ import com.example.busapp20.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+//  ******************************************************************************************** //
+/// *** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS APP FUNCTTIONS OK IN BACKGROUND *** //
+//  ******************************************************************************************** //
+
 public class BackgroundService extends Service {
 
     private static final String CHANNEL_ID = "BusAppBackgroundServiceChannel";

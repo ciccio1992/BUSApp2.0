@@ -22,6 +22,7 @@ var hierarchy =
     ] ],
     [ "Service", null, [
       [ "com.example.busapp20.Background.BackgroundService", "classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html", [
+        [ "com.example.busapp20.Background.OnbusNotificationService", "classcom_1_1example_1_1busapp20_1_1_background_1_1_onbus_notification_service.html", null ],
         [ "com.example.busapp20.Background.WifiLoopTimer", "classcom_1_1example_1_1busapp20_1_1_background_1_1_wifi_loop_timer.html", null ]
       ] ]
     ] ]

@@ -49,7 +49,6 @@ public class ToolsActivity extends AppCompatActivity {
     }
 
     ///UPDATING DATA RECEIVED FROM wifiReceiver.java
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

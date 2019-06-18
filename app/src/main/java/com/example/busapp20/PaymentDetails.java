@@ -12,6 +12,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+///   Activity shown on successful payment reporting data about the transaction.
 public class PaymentDetails extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus;
@@ -32,7 +34,7 @@ public class PaymentDetails extends AppCompatActivity {
         Intent intent = getIntent();
 
 
-        // We get our JSON from Topup Activity
+        /// We get our JSON from Topup Activity
         try {
             JSONObject jsonObject = new JSONObject(intent.getStringExtra("PaymentDetails"));
             showDetails(jsonObject.getJSONObject("response"), intent.getStringExtra("PaymentAmount"));
@@ -49,7 +51,7 @@ public class PaymentDetails extends AppCompatActivity {
 
     }
 
-    // We show payment data. FYI
+    /// Show payment data on UI. FYI
     private void showDetails(JSONObject response, String paymentAmount) {
         try {
             txtId.setText(response.getString("id"));

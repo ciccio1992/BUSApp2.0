@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['ticket',['Ticket',['../classcom_1_1example_1_1busapp20_1_1_ticket.html',1,'com.example.busapp20.Ticket'],['../classcom_1_1example_1_1busapp20_1_1_ticket.html#aa56bd8d91ef57f4c1b85ddf522eb8d37',1,'com.example.busapp20.Ticket.Ticket()']]],
-  ['ticket_2ejava',['Ticket.java',['../_ticket_8java.html',1,'']]],
-  ['ticketvalid',['ticketvalid',['../classcom_1_1example_1_1busapp20_1_1_main_activity.html#ac584a800c3849888d87634c5c74acfaa',1,'com::example::busapp20::MainActivity']]],
-  ['time',['time',['../classcom_1_1example_1_1busapp20_1_1_main_activity.html#af8d8314196c0c884fed21cae1ff4d713',1,'com::example::busapp20::MainActivity']]],
-  ['toolsactivity',['ToolsActivity',['../classcom_1_1example_1_1busapp20_1_1_tools_activity.html',1,'com::example::busapp20']]],
-  ['toolsactivity_2ejava',['ToolsActivity.java',['../_tools_activity_8java.html',1,'']]],
-  ['topupactivity',['TopupActivity',['../classcom_1_1example_1_1busapp20_1_1_topup_activity.html',1,'com::example::busapp20']]],
-  ['topupactivity_2ejava',['TopupActivity.java',['../_topup_activity_8java.html',1,'']]]
+  ['setnotificationdelay',['setNotificationDelay',['../classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#a7b2e78b45d0824eab5632e248c28cb15',1,'com::example::busapp20::Background::BackgroundService']]],
+  ['settingsactivity',['SettingsActivity',['../classcom_1_1example_1_1busapp20_1_1_settings_activity.html',1,'com::example::busapp20']]],
+  ['settingsactivity_2ejava',['SettingsActivity.java',['../_settings_activity_8java.html',1,'']]],
+  ['shareactivity',['ShareActivity',['../classcom_1_1example_1_1busapp20_1_1_share_activity.html',1,'com::example::busapp20']]],
+  ['shareactivity_2ejava',['ShareActivity.java',['../_share_activity_8java.html',1,'']]],
+  ['start',['start',['../classcom_1_1example_1_1busapp20_1_1_background_1_1_wifi_loop_timer.html#af23d99c549bd64d686a1ae233fb7eb98',1,'com::example::busapp20::Background::WifiLoopTimer']]],
+  ['startactivityonboot',['StartActivityOnBoot',['../classcom_1_1example_1_1busapp20_1_1_start_activity_on_boot.html',1,'com::example::busapp20']]],
+  ['startactivityonboot_2ejava',['StartActivityOnBoot.java',['../_start_activity_on_boot_8java.html',1,'']]],
+  ['stop',['stop',['../classcom_1_1example_1_1busapp20_1_1_background_1_1_wifi_loop_timer.html#a77218d7f02a50266aba984686e56fd9e',1,'com::example::busapp20::Background::WifiLoopTimer']]]
 ];

@@ -89,19 +89,24 @@ $(document).ready(function(){initNavTree('classcom_1_1example_1_1busapp20_1_1_ba
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">com.example.busapp20.Background.BackgroundService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>*** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS APP FUNCTTIONS OK IN BACKGROUND *** //  
+ <a href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for com.example.busapp20.Background.BackgroundService:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.png" usemap="#com.example.busapp20.Background.BackgroundService_map" alt=""/>
   <map id="com.example.busapp20.Background.BackgroundService_map" name="com.example.busapp20.Background.BackgroundService_map">
-<area href="classcom_1_1example_1_1busapp20_1_1_background_1_1_wifi_loop_timer.html" alt="com.example.busapp20.Background.WifiLoopTimer" shape="rect" coords="0,112,332,136"/>
+<area href="classcom_1_1example_1_1busapp20_1_1_background_1_1_onbus_notification_service.html" title="*** THIS CLASS CREATES A PERSISTENT NOTIFICATION SO THAT THE APP WILL NOT BE CLOSED AUTO *** //" alt="com.example.busapp20.Background.OnbusNotificationService" shape="rect" coords="0,112,364,136"/>
+<area href="classcom_1_1example_1_1busapp20_1_1_background_1_1_wifi_loop_timer.html" title="*** THIS CLASS HANDLES AUTOMATIC WIFI SCANS WITH TIMER. RESULTS ARE USED IN WIFIRECEIVER *** //" alt="com.example.busapp20.Background.WifiLoopTimer" shape="rect" coords="374,112,738,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -116,12 +121,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a44c882f463ba4d1f703957472c7d4057"><td class="memItemLeft" align="right" valign="top">IBinder&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#a44c882f463ba4d1f703957472c7d4057">onBind</a> (Intent intent)</td></tr>
 <tr class="separator:a44c882f463ba4d1f703957472c7d4057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a7b2e78b45d0824eab5632e248c28cb15"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#a7b2e78b45d0824eab5632e248c28cb15">setNotificationDelay</a> ()</td></tr>
+<tr class="separator:a7b2e78b45d0824eab5632e248c28cb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:ac2717e469ce023cac507cce5487ebf19"><td class="memItemLeft" align="right" valign="top">static WifiManager&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#ac2717e469ce023cac507cce5487ebf19">wifiManager</a></td></tr>
 <tr class="separator:ac2717e469ce023cac507cce5487ebf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e7ffac0e0afc02ff58c0c0012746cf"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1_background_service.html#a73e7ffac0e0afc02ff58c0c0012746cf">notificationSent</a> = false</td></tr>
+<tr class="separator:a73e7ffac0e0afc02ff58c0c0012746cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>*** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS APP FUNCTTIONS OK IN BACKGROUND *** // </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a44c882f463ba4d1f703957472c7d4057"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a44c882f463ba4d1f703957472c7d4057">&#9670;&nbsp;</a></span>onBind()</h2>
 
@@ -208,7 +222,54 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7b2e78b45d0824eab5632e248c28cb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b2e78b45d0824eab5632e248c28cb15">&#9670;&nbsp;</a></span>setNotificationDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void com.example.busapp20.Background.BackgroundService.setNotificationDelay </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a73e7ffac0e0afc02ff58c0c0012746cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e7ffac0e0afc02ff58c0c0012746cf">&#9670;&nbsp;</a></span>notificationSent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean com.example.busapp20.Background.BackgroundService.notificationSent = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac2717e469ce023cac507cce5487ebf19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2717e469ce023cac507cce5487ebf19">&#9670;&nbsp;</a></span>wifiManager</h2>
 

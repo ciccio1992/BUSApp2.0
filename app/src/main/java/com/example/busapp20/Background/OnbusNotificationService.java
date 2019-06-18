@@ -16,6 +16,10 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.busapp20.MainActivity;
 import com.example.busapp20.R;
 
+//  ******************************************************************************************** //
+/// *** THIS CLASS CREATES A PERSISTENT NOTIFICATION SO THAT THE APP WILL NOT BE CLOSED AUTO *** //
+//  ******************************************************************************************** //
+
 @SuppressLint("Registered")
 public class OnbusNotificationService extends BackgroundService {
 
