@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,9 +20,15 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.busapp20.MainActivity;
 import com.example.busapp20.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 //  ******************************************************************************************** //
 /// *** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS APP FUNCTTIONS OK IN BACKGROUND *** //
 //  ******************************************************************************************** //
+
 public class BackgroundService extends Service {
 
     private static final String CHANNEL_ID = "BusAppBackgroundServiceChannel";
@@ -29,6 +36,10 @@ public class BackgroundService extends Service {
 
     public static WifiManager wifiManager;
     BroadcastReceiver myReceiver = null;
+
+    public static boolean notificationSent = false;
+    private static Timer notificationTimer;
+
 
 
     @Override
@@ -90,6 +101,23 @@ public class BackgroundService extends Service {
             manager.createNotificationChannel(serviceChannel);
         }
 
+    }
+
+    public static void setNotificationDelay(){
+
+        notificationSent = true;
+
+        if (notificationTimer == null) {
+            notificationTimer = new Timer();
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    notificationSent = false;
+                    Log.i("BACKGROUND SERVICE", "Notification delay started.");
+                }
+            };
+            notificationTimer.schedule(timerTask, 30*60*1000);
+        }
     }
 
     @Override

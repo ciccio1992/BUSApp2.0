@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.audiofx.Equalizer;
 import android.os.Build;
 import android.provider.Settings;
 
