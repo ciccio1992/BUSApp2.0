@@ -23,13 +23,12 @@ import static java.lang.Integer.valueOf;
 public class wifiReceiver extends BroadcastReceiver {
 
 
-    static String TAG = "WIFIRECEIVER";
-    List<ScanResult> results;
     public static boolean onBus = false;
     public static int[] lastResults = new int[10];
     public static String resultsToString = "";
     public static ArrayList<String> arrayList = null;
-
+    static String TAG = "WIFIRECEIVER";
+    List<ScanResult> results;
     int counter = 0;            // Counts the position where to write next result in the Array
 
 
@@ -96,7 +95,7 @@ public class wifiReceiver extends BroadcastReceiver {
             // (sensibility) out of 10 attempts validated
             // CODE TO HANDLE YOU ARE MOVING ON THE BUS
 
-            if (successCounter >= sensibility && !onBus) {
+            if (successCounter >= sensibility && !onBus && !MainActivity.ticketvalid) {
 
                 // fronte di salita
 
@@ -114,10 +113,11 @@ public class wifiReceiver extends BroadcastReceiver {
                     } else {
                         Log.i(TAG, "Error opening the app automatically");
                     }
-                } else {
+                } else if (!BackgroundService.notificationSent) {
 
                     Intent i = new Intent(context, OnbusNotificationService.class);
                     context.startService(i);
+                    BackgroundService.setNotificationDelay();
                 }
 
 
@@ -129,7 +129,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 onBus = false;
             }
 
-            if (counter == 10) {           //Counter RESET to simulate queue.
+            if (counter == 10) {           ///*** Counter RESET to simulate queue.
                 counter = 0;
             }
         }

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     public static TextView time, time_label;
     Button btBuyTicket;
 
+
     public static boolean ticketvalid = false;
 
 
@@ -258,11 +259,14 @@ public class MainActivity extends AppCompatActivity
         Showtime();
         ticketvalid = true;
         startTimer();
+        BackgroundService.setNotificationDelay();
     }
 
     private static void stopTicket() {
         HideTime();
         ticketvalid = false;
+        BackgroundService.notificationSent = false;
+
     }
 
     private static void startTimer() {
