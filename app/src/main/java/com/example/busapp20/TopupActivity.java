@@ -27,15 +27,19 @@ import org.json.JSONException;
 
 import java.math.BigDecimal;
 
-import Config.Config;
+import Config.Config;       // We store here our Key
 
+//  ******************************************************************************************* //
+/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET  ***** //
+/// ************************  THIS IS PAYPAL IMPLEMENTATION IN - APP   ************************ //
+//  ******************************************************************************************* //
 
 public class TopupActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public static final int PAYPAL_REQUEST_CODE = 7171;
 
-    private static PayPalConfiguration config = new PayPalConfiguration()
+    private static PayPalConfiguration config = new PayPalConfiguration() // PAYPAL object initialization
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)   // We are using sandbox because we don't want to actually pay during demos
             .clientId(Config.PAYPAL_CLIENT_ID);
 
@@ -48,6 +52,8 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, PayPalService.class));
+
+        // It makes impossible to get back to a previous state of this activity when you move focus.
     }
 
     @Override
@@ -68,11 +74,14 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         btnPayNow = findViewById(R.id.btnPayNow);
         edtAmount = findViewById(R.id.edtAmount);
 
+
+        // Setting TopUp Button Listener to start Payment process
         btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 amount = edtAmount.getText().toString();
 
+                // Check if you are trying to topUp a negative amount.
                 if (amount.isEmpty() || Integer.valueOf(amount) < 1) {
                     AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(TopupActivity.this);
                     AlertBuilder.setMessage("Please insert a valid amount.");
@@ -91,6 +100,8 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                     AlertDialog alertDialog = AlertBuilder.create();
                     alertDialog.show();
                 } else {
+
+                    // If you are clever enough not to try lose your money you can go ahead.
                     processPayment();
 
                 }
@@ -108,21 +119,21 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    // We check if everything has gone all right!
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAYPAL_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
 
                 /// Code to get our previous balance from SharedPreferences
                 SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
                 float myPrevBalance = prefs.getFloat("Balance", 0);
                 //
 
-
                 PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if (confirmation != null) {
+                if (confirmation != null) {     // We make sure we get infos from PPal!
                     try {
+                        // We create a JSON to move our infos
                         String paymentDetails = confirmation.toJSONObject().toString(4);
 
                         /// Updating Balance on SharedPreferences
@@ -134,19 +145,22 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                         editor.apply();
                         // New Data Applied
 
+                        // An activity with your payment data is shown.
                         startActivity(new Intent(this, PaymentDetails.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", amount)
                         );
                     } catch (JSONException e) {
+                        // Exception handling
                         e.printStackTrace();
+                        // We print StackTrace in case of errors
                     }
                 }
                 finish();
-            } else if (resultCode == Activity.RESULT_CANCELED)
-                Toast.makeText(this, "Ricarica Cancellata", Toast.LENGTH_SHORT).show();
-        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)
-            Toast.makeText(this, "Ricarica Fallita", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == Activity.RESULT_CANCELED)  // IF USER ABORTS?
+                Toast.makeText(this, "Ricarica Cancellata", Toast.LENGTH_SHORT).show();     //Toast
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)     //IF DATA IS INVALID?
+            Toast.makeText(this, "Ricarica Fallita", Toast.LENGTH_SHORT).show();            //Toast
     }
 
     @Override

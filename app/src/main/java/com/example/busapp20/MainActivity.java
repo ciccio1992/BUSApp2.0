@@ -33,6 +33,11 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Locale;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
+//  ******************************************************************************************* //
+/// ***** BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR ***** //
+/// ***** ON A WIFI ACCESS POINT BASIS. PAYMENTS ARE MADE VIA PAYPAL AND ARE AUTOMATIC.   ***** //
+//  ******************************************************************************************* //
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,15 +73,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Connecting JAVA to XML
         time = findViewById(R.id.tvTimeLeft);
         time_label = findViewById(R.id.tvTimeLeftLabel);
-
         balanceAmount = findViewById(R.id.amountValue);
-
         username = findViewById(R.id.tvUsernameHome);
-
         btBuyTicket = findViewById(R.id.btBuyTicket);
 
+        // Action on ticket buy button pressed
         btBuyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,12 +88,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+        // onCreate Main Activity a Background Service that keeps the app active is initialized.
         startService(new Intent(this, BackgroundService.class));
-
-
     }
 
+
+    // UI back buton
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -100,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
+    // Menu UI Buttons -> On item pressed, a function to launch the activity is started.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
 
-        ///THE FOLLOWING CODE REQUIRES PERMISSIONS ON RUNTIME!
+        ///THE FOLLOWING CODE REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -173,6 +177,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    // Methods to launch secondary activities from side menu.
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
@@ -298,11 +303,13 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    // Method to show time on (TIME START)
     private static void Showtime() {
         time.setVisibility(View.VISIBLE);
         time_label.setVisibility(View.VISIBLE);
     }
 
+    // Method to hide time on app first start or when time finishes
     private static void HideTime() {
 
         Log.i("MAIN", "Now Timer should be set hidden!");
@@ -310,7 +317,7 @@ public class MainActivity extends AppCompatActivity
         time_label.setVisibility(View.INVISIBLE);
     }
 
-    // Rounding method
+    // Rounding method unused
     public static double Rounding(double value, int numCifreDecimali) {
         double temp = Math.pow(10, numCifreDecimali);
         return Math.round(value * temp) / temp;
