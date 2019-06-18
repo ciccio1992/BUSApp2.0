@@ -105,6 +105,7 @@ Inheritance diagram for com.example.busapp20.Background.wifiReceiver:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0ccca96034605517ccdfdc95e708adb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1wifi_receiver.html#a0ccca96034605517ccdfdc95e708adb5">onReceive</a> (Context context, Intent intent)</td></tr>
+<tr class="memdesc:a0ccca96034605517ccdfdc95e708adb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">onReceive WiFi SCAN RESULTS are processed through an algorithm to defyne if we are onBus.  <a href="#a0ccca96034605517ccdfdc95e708adb5">More...</a><br /></td></tr>
 <tr class="separator:a0ccca96034605517ccdfdc95e708adb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -118,7 +119,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a99e60ad617ae4111d81d9c8c70fba79c"><td class="memItemLeft" align="right" valign="top">static ArrayList&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1example_1_1busapp20_1_1_background_1_1wifi_receiver.html#a99e60ad617ae4111d81d9c8c70fba79c">arrayList</a> = null</td></tr>
 <tr class="separator:a99e60ad617ae4111d81d9c8c70fba79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>********** This class is a Broadcast receiver for automatic wifi scans. // This same class reports and analyzes results looking for onbus==true! ********* // </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0ccca96034605517ccdfdc95e708adb5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ccca96034605517ccdfdc95e708adb5">&#9670;&nbsp;</a></span>onReceive()</h2>
 
@@ -144,6 +147,13 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>onReceive WiFi SCAN RESULTS are processed through an algorithm to defyne if we are onBus. </p>
+<p>Triggered on wifi scan's result available broadcast received</p>
+<p>We build a list with available networks.</p>
+<p>Allowed MAC ADDRESSES ARE WRITTEN IN HERE!!</p>
+<p>Eventually YOU ARE ON THE BUS IF YOU RECEIVE ACCESS POINTS WITH ENOUGH STRENGTH. Every strong AP increments int isFound. If isFound == 2 (Two Strong APs for n == sensibilty times, YOU ARE DEFINITELY ON THE BUS.</p>
+<p>IN HERE GOES THE CODE TO HANDLE YOU ARE MOVING ON THE BUS </p>
 
 </div>
 </div>
