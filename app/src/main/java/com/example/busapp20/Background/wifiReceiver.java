@@ -91,6 +91,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
             }
 
+            Log.i(TAG, "SuccessCounter: " + successCounter);
 
             // (sensibility) out of 10 attempts validated
             // CODE TO HANDLE YOU ARE MOVING ON THE BUS
@@ -117,7 +118,6 @@ public class wifiReceiver extends BroadcastReceiver {
 
                     Intent i = new Intent(context, OnbusNotificationService.class);
                     context.startService(i);
-                    BackgroundService.setNotificationDelay();
                 }
 
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -35,7 +36,7 @@ public class OnbusNotificationService extends BackgroundService {
                 .setSmallIcon(R.drawable.ic_stat_persistentnotification)
                 .setContentTitle("You are on the bus.")
                 .setContentText("Tap here to buy a ticket.")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.parseColor("#FF5722"))
                 .setContentIntent(pendingIntent)
@@ -44,13 +45,20 @@ public class OnbusNotificationService extends BackgroundService {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setVibrate(pattern)
                 .setOnlyAlertOnce(true)
-                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setTimeoutAfter(60*1000)
+                ;
 
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(ID, builder.build());
+
+        Log.i("NOTIFICATIONSERVICE", "Notification sent.");
+
+        setNotificationDelay();
+
         return START_NOT_STICKY;
     }
 

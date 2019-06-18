@@ -108,10 +108,12 @@ public class BackgroundService extends Service {
                 @Override
                 public void run() {
                     notificationSent = false;
-                    Log.i("BACKGROUND SERVICE", "Notification delay started.");
+                    Log.i("BACKGROUND SERVICE", "Notification delay finished.");
+
                 }
             };
-            notificationTimer.schedule(timerTask, 30*60*1000);
+            notificationTimer.schedule(timerTask, 1800000);
+            Log.i("BACKGROUND SERVICE", "Notification delay started.");
         }
     }
 
