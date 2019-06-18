@@ -5,6 +5,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+//  ******************************************************************************************** //
+/// *** THS CLASS HANDLES THE SHARE PAGE. IT IS ONLY SHOWN AS A FUTURE IMPLEMENTATION. *** //
+//  ******************************************************************************************** //
+
 public class ShareActivity extends AppCompatActivity {
 
     @Override

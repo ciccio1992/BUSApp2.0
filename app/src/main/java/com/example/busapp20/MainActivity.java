@@ -49,101 +49,6 @@ public class MainActivity extends AppCompatActivity
     TextView balanceAmount, username;
     Button btBuyTicket;
 
-    ///***  DEPRECATED Function. Used to show a popup instead of a snackbar.
-    public static void BuyTicketAlertDialogVersion(@NonNull Context context) {
-        if (!ticketvalid) {
-            /// Code to get our previous balance from SharedPreferences
-            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            float myPrevBalance = prefs.getFloat("Balance", 0);
-
-            // Updating Balance on SharedPreferences
-            float newBalance = (myPrevBalance - 1.5f);
-            if (newBalance >= 0) {
-                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putFloat("Balance", newBalance);
-                editor.apply();
-                // New Data Applied
-                startTicket();
-
-            } else {
-                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
-                        "Please top-up your account.");
-            }
-        }
-    }
-
-    private static void startTicket() {
-        Showtime();
-        ticketvalid = true;
-        startTimer();
-        BackgroundService.setNotificationDelay();
-    }
-
-    private static void stopTicket() {
-        HideTime();
-        ticketvalid = false;
-        BackgroundService.notificationSent = false;
-
-    }
-
-    private static void startTimer() {
-
-        new CountDownTimer(5400000, 1000) {     //Ticket timer implementation
-            public void onTick(long millisUntilFinished) {
-                int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
-                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
-                int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
-                time.setText(String.format(Locale.ITALY, "%02d : %02d : %02d", hours, minutes, seconds));
-            }
-
-            public void onFinish() {
-                stopTicket();       // On time finish run function routine.
-            }
-        }.start();
-    }
-
-    /// Creates a Snackbar!
-    private static void MakeSnackbar(View view, String string) {
-        Snackbar.make(view, string, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
-    /// DEPRECATED: Creates a popup with a single button.
-    public static void MakeAlertDialog(Context context, String string) {
-        AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
-        AlertBuilder.setMessage(string);
-        AlertBuilder.setCancelable(true);
-        AlertBuilder.setPositiveButton(
-                "Ok!",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = AlertBuilder.create();
-        alertDialog.show();
-    }
-
-    // Method to show time on (TIME START)
-    private static void Showtime() {
-        time.setVisibility(View.VISIBLE);
-        time_label.setVisibility(View.VISIBLE);
-    }
-
-    // Method to hide time on app first start or when time finishes
-    private static void HideTime() {
-
-        Log.i("MAIN", "Now Timer should be set hidden!");
-        time.setVisibility(View.INVISIBLE);
-        time_label.setVisibility(View.INVISIBLE);
-    }
-
-    // Rounding method unused
-    public static double Rounding(double value, int numCifreDecimali) {
-        double temp = Math.pow(10, numCifreDecimali);
-        return Math.round(value * temp) / temp;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -177,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         btBuyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyTicketSnackbarVersion(getBaseContext(), v);
+                BuyTicket(getBaseContext(), v);
             }
         });
 
@@ -249,7 +154,134 @@ public class MainActivity extends AppCompatActivity
         /// END PERMISSION REQUIRES
     }
 
-    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHAREDPREFS
+    ///***  Buy a ticket and shows a snackbar notification in the current view.
+    /// Used in MainActivity
+    public void BuyTicket(@NonNull Context context, View view) {
+
+        if (!ticketvalid) {     //We check whether if the user already nb
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);     // Retrieving our current balance from SharedPrefs.
+
+            /// Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);      //Price of ticket taken from balance.
+            if (newBalance >= 0) {                          //Positive balance check, if balance becomes negative you are unable to buy a ticket.
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+                MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
+
+            } else {
+                MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
+            }
+        } else {
+            MakeSnackbar(view, "Ticket already bought.");           // You failed because tickevalid is true = you already have a valid ticket.
+        }
+    }
+
+    ///***  Buy a ticket with an Alert Dialog.
+    // It doesn't require a View type argument. Used for Autoticket.
+    public static void BuyTicket(@NonNull Context context) {
+        if (!ticketvalid) {
+            /// Code to get our previous balance from SharedPreferences
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);
+
+            // Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);
+            if (newBalance >= 0) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+
+            } else {
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
+                        "Please top-up your account.");
+            }
+        }
+    }
+
+    /// Creates a Snackbar!
+    private static void MakeSnackbar(View view, String string) {
+        Snackbar.make(view, string, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    /// DEPRECATED: Creates an Alert Dialog with a single button.
+    public static void MakeAlertDialog(Context context, String string) {
+        AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
+        AlertBuilder.setMessage(string);
+        AlertBuilder.setCancelable(true);
+        AlertBuilder.setPositiveButton(
+                "Ok!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = AlertBuilder.create();
+        alertDialog.show();
+    }
+
+    /// Method to show time TextView: when timer starts
+    private static void Showtime() {
+        time.setVisibility(View.VISIBLE);
+        time_label.setVisibility(View.VISIBLE);
+    }
+
+    /// Method to hide time  TextView: on app first start or when time finishes
+    private static void HideTime() {
+
+        Log.i("MAIN", "Now Timer should be set hidden!");
+        time.setVisibility(View.INVISIBLE);
+        time_label.setVisibility(View.INVISIBLE);
+    }
+
+    /// Rounding method
+    public static double Rounding(double value, int numCifreDecimali) {
+        double temp = Math.pow(10, numCifreDecimali);
+        return Math.round(value * temp) / temp;
+    }
+
+    /// Method to set the ticket as bought
+    private static void startTicket() {
+        Showtime();
+        ticketvalid = true;
+        startTimer();
+        BackgroundService.setNotificationDelay();
+    }
+
+    /// Method to set the ticket as not bought
+    private static void stopTicket() {
+        HideTime();
+        ticketvalid = false;
+        BackgroundService.notificationSent = false;
+
+    }
+
+    /// Method to start the ticket countdown timer
+    private static void startTimer() {
+
+        new CountDownTimer(5400000, 1000) {     //Ticket timer implementation
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
+                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                time.setText(String.format(Locale.ITALY, "%02d : %02d : %02d", hours, minutes, seconds));
+            }
+
+            public void onFinish() {
+                stopTicket();       // On time finish run function routine.
+            }
+        }.start();
+    }
+
+
+
+    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHARED PREFS
     @SuppressLint("SetTextI18n")
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -267,7 +299,7 @@ public class MainActivity extends AppCompatActivity
         balanceAmount.setText(Rounding(myBalance, 2) + " €");
     }
 
-    // Methods to launch secondary activities from side menu.
+    ///*** Methods to launch secondary activities from side menu.
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
@@ -293,29 +325,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    ///***  NEW Function. Same as following but uses snackbar instead of old popup.
-    public void BuyTicketSnackbarVersion(@NonNull Context context, View view) {
 
-        if (!ticketvalid) {     //We check whether if the user already nb
-            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            float myPrevBalance = prefs.getFloat("Balance", 0);     // Retrieving our current balance from SharedPrefs.
-
-            /// Updating Balance on SharedPreferences
-            float newBalance = (myPrevBalance - 1.5f);      //Price of ticket taken from balance.
-            if (newBalance >= 0) {                          //Positive balance check, if balance becomes negative you are unable to buy a ticket.
-                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putFloat("Balance", newBalance);
-                editor.apply();
-                // New Data Applied
-                startTicket();
-                MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
-
-            } else {
-                MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
-            }
-        } else {
-            MakeSnackbar(view, "Ticket already bought.");           // You failed because tickevalid is true = you already have a valid ticket.
-        }
-    }
 
 }

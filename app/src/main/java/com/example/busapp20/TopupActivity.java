@@ -30,8 +30,8 @@ import java.math.BigDecimal;
 import Config.Config;       // We store here our Key
 
 //  ******************************************************************************************* //
-/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET.       //
-///                           THIS IS PAYPAL IMPLEMENTATION IN - APP   ************************ //
+/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET. ***** //
+/// *****                         THIS IS PAYPAL IN - APP IMPLEMENTATION                  ***** //
 //  ******************************************************************************************* //
 
 public class TopupActivity extends AppCompatActivity implements View.OnClickListener {
@@ -81,7 +81,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 amount = edtAmount.getText().toString();
 
-                // Check if you are trying to topUp a negative amount.
+                // Check if you are trying to topUp a negative or zero amount.
                 if (amount.isEmpty() || Integer.valueOf(amount) < 1) {
                     AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(TopupActivity.this);
                     AlertBuilder.setMessage("Please insert a valid amount.");
@@ -158,9 +158,9 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                 }
                 finish();
             } else if (resultCode == Activity.RESULT_CANCELED)  // IF USER ABORTS?
-                Toast.makeText(this, "Ricarica Cancellata", Toast.LENGTH_SHORT).show();     //Toast
+                Toast.makeText(this, "TopUp Cancelled", Toast.LENGTH_SHORT).show();     //Toast
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)     //IF DATA IS INVALID?
-            Toast.makeText(this, "Ricarica Fallita", Toast.LENGTH_SHORT).show();            //Toast
+            Toast.makeText(this, "TopUp Failed", Toast.LENGTH_SHORT).show();            //Toast
     }
 
     @Override

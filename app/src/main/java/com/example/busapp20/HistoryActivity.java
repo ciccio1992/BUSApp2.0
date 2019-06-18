@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/// Not yet implemented in a working way. The list is temporarily fake. Its development is on the TO-DO list.
+/// Not yet implemented in a working way. The list is temporarily fake.
+//  Its development is on the TO-DO list.
+
 public class HistoryActivity extends AppCompatActivity {
 
     ListView lvTravelHistory = null;
@@ -27,73 +29,33 @@ public class HistoryActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        /*
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back_chevron);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        */
-
         lvTravelHistory = findViewById(R.id.lvTravelHistory);
 
+        final ArrayList<String> exampleList = new ArrayList<String>();
 
-        String[] values = new String[]{"12/04/2019 12:21", "4/04/2019 15:04", "1/04/2019 11:29",
-                "28/03/2019 19:51", "17/03/2019 9:18", "11/03/2019 22:10", "1/03/2019 15:20",
-                "27/02/2019 1:16", "13/02/2019 17:11", "13/02/2019 12:46"};
-
-        final ArrayList<String> list = new ArrayList<String>();
-
-        list.add("12/04/2019 12:21");
-        list.add("4/04/2019 15:04");
-        list.add("1/04/2019 11:29");
-        list.add("28/03/2019 19:51");
-        list.add("17/03/2019 9:18");
-        list.add("11/03/2019 22:10");
-        list.add("1/03/2019 15:20");
-        list.add("27/02/2019 1:16");
-        list.add("13/02/2019 17:11");
-        list.add("13/02/2019 12:46");
+        exampleList.add("12/04/2019 12:21");
+        exampleList.add("4/04/2019 15:04");
+        exampleList.add("1/04/2019 11:29");
+        exampleList.add("28/03/2019 19:51");
+        exampleList.add("17/03/2019 9:18");
+        exampleList.add("11/03/2019 22:10");
+        exampleList.add("1/03/2019 15:20");
+        exampleList.add("27/02/2019 1:16");
+        exampleList.add("13/02/2019 17:11");
+        exampleList.add("13/02/2019 12:46");
 
 
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, exampleList);
 
         lvTravelHistory.setAdapter(adapter);
-
-
-        /*
-
-        lvTravelHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
-            }
-
-        });
-
-        */
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
@@ -118,12 +80,6 @@ public class HistoryActivity extends AppCompatActivity {
             return true;
         }
 
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }
 

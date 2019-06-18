@@ -6,6 +6,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
+//  ******************************************************************************************** //
+/// ***                 THIS CLASS HANDLES THE SETTINGS "SHARED PREFS" PAGE                  *** //
+//  ******************************************************************************************** //
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

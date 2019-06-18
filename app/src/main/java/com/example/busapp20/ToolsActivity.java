@@ -17,6 +17,11 @@ import static com.example.busapp20.Background.wifiReceiver.resultsToString;
 import static com.example.busapp20.Background.wifiReceiver.arrayList;
 
 
+//  ******************************************************************************************** //
+/// *** THIS CLASS HANDLES THE TOOLS PAGE *** //
+//  ******************************************************************************************** //
+
+
 public class ToolsActivity extends AppCompatActivity {
 
     Button btScan;
@@ -48,13 +53,15 @@ public class ToolsActivity extends AppCompatActivity {
         });
     }
 
-    ///UPDATING DATA RECEIVED FROM wifiReceiver.java
+    ///*** Updates data received from wifiReceiver.java
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         UpdateTestData();
     }
 
+    ///*** Uses values from wifiReceiver to build a String and show it in the Textview
+    ///*** and shows the wifi list in the Listview
     void UpdateTestData() {
         resultsToString = "";
         for (int i = 0; i < 10; i++) {

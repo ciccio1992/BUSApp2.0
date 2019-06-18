@@ -33,7 +33,7 @@
     <string name="username_title">Your Username</string>
 
     <!-- Autoticket Preferences -->
-    <string name="autoticket_title">Buy the ticket automatically</string>
+    <string name="autoticket_title">Buy the ticket automatically. Restart to make effective.</string>
     <string name="wifi_sensibility_title">Wifi sensibility</string>
 
     <!-- topUp Activity -->

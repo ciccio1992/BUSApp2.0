@@ -21,11 +21,9 @@
         <item>30%</item>
         <item>20%</item>
         <item>10%</item>
-        <item>0%</item>
     </string-array>
 
     <string-array name="autoticket_values">
-        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

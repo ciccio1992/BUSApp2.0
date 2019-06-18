@@ -17,7 +17,7 @@ import com.example.busapp20.MainActivity;
 import com.example.busapp20.R;
 
 //  ******************************************************************************************** //
-/// *** THIS CLASS CREATES A PERSISTENT NOTIFICATION SO THAT THE APP WILL NOT BE CLOSED AUTO *** //
+/// *** THIS CLASS CREATES A HEARABLE NOTIFICATION TO REMIND THE USER TO BUY A TICKET *** //
 //  ******************************************************************************************** //
 
 @SuppressLint("Registered")
@@ -40,7 +40,7 @@ public class OnbusNotificationService extends BackgroundService {
                 .setSmallIcon(R.drawable.ic_stat_persistentnotification)
                 .setContentTitle("You are on the bus.")
                 .setContentText("Tap here to buy a ticket.")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.parseColor("#FF5722"))
                 .setContentIntent(pendingIntent)
@@ -50,7 +50,7 @@ public class OnbusNotificationService extends BackgroundService {
                 .setVibrate(pattern)
                 .setOnlyAlertOnce(true)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                .setTimeoutAfter(60*1000)
+                .setTimeoutAfter(5*60*1000) // 5 minutes timeout
                 ;
 
 

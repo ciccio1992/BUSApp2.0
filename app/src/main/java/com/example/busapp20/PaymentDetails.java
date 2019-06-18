@@ -1,19 +1,20 @@
 package com.example.busapp20;
 
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//  ******************************************************************************************** //
+/// *** ACTIVITY SHOWN AFTER SUCCESSFUL PAYMENT *** //
+//  ******************************************************************************************** //
 
-///   Activity shown on successful payment reporting data about the transaction.
 public class PaymentDetails extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus;
