@@ -6,6 +6,7 @@ public class Ticket {
     boolean ticketvalid;
     Date databought;
 
+    /// Constructor method for a ticket
     public void Ticket(boolean Ticketvalid, Date CurrentDate) {
         ticketvalid = Ticketvalid;
         databought = CurrentDate;

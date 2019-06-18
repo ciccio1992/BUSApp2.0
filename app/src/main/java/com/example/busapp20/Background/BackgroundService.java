@@ -19,7 +19,9 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.busapp20.MainActivity;
 import com.example.busapp20.R;
-
+//  ******************************************************************************************** //
+/// *** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS APP FUNCTTIONS OK IN BACKGROUND *** //
+//  ******************************************************************************************** //
 public class BackgroundService extends Service {
 
     private static final String CHANNEL_ID = "BusAppBackgroundServiceChannel";

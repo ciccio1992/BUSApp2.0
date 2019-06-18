@@ -16,13 +16,15 @@ import java.util.TimerTask;
 
 import static java.lang.Integer.valueOf;
 
-
+//  ******************************************************************************************** //
+/// *** THIS CLASS HANDLES AUTOMATIC WIFI SCANS WITH TIMER. RESULTS ARE USED IN WIFIRECEIVER *** //
+//  ******************************************************************************************** //
 public class WifiLoopTimer extends BackgroundService {
 
 
     private static Timer timer;
 
-
+    /// Wifi scans Timer STARTS with this method.
     public static void start(final WifiManager wifiManager, Context context) {
         final SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
@@ -41,7 +43,7 @@ public class WifiLoopTimer extends BackgroundService {
         }
     }
 
-
+    /// Wifi scans Timer STOPS with this method.
     public static void stop() {
         timer.cancel();
     }

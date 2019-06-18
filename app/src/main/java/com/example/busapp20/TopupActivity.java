@@ -30,8 +30,8 @@ import java.math.BigDecimal;
 import Config.Config;       // We store here our Key
 
 //  ******************************************************************************************* //
-/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET  ***** //
-/// ************************  THIS IS PAYPAL IMPLEMENTATION IN - APP   ************************ //
+/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET.       //
+///                           THIS IS PAYPAL IMPLEMENTATION IN - APP   ************************ //
 //  ******************************************************************************************* //
 
 public class TopupActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,7 +53,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         super.onDestroy();
         stopService(new Intent(this, PayPalService.class));
 
-        // It makes impossible to get back to a previous state of this activity when you move focus.
+        /// It makes impossible to get back to a previous state of this activity when you move focus.
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        //START Paypal Service
+        ///START Paypal Service
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
@@ -75,7 +75,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
         edtAmount = findViewById(R.id.edtAmount);
 
 
-        // Setting TopUp Button Listener to start Payment process
+        /// Setting TopUp Button Listener to start Payment process
         btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +119,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    // We check if everything has gone all right!
+    /// We check if everything has gone all right!
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAYPAL_REQUEST_CODE) {
@@ -145,7 +145,7 @@ public class TopupActivity extends AppCompatActivity implements View.OnClickList
                         editor.apply();
                         // New Data Applied
 
-                        // An activity with your payment data is shown.
+                        /// An activity with your payment data is shown.
                         startActivity(new Intent(this, PaymentDetails.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", amount)
