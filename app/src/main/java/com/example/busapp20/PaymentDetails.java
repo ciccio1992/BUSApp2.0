@@ -31,6 +31,8 @@ public class PaymentDetails extends AppCompatActivity {
         //Get Intent
         Intent intent = getIntent();
 
+
+        // We get our JSON from Topup Activity
         try {
             JSONObject jsonObject = new JSONObject(intent.getStringExtra("PaymentDetails"));
             showDetails(jsonObject.getJSONObject("response"), intent.getStringExtra("PaymentAmount"));
@@ -47,6 +49,7 @@ public class PaymentDetails extends AppCompatActivity {
 
     }
 
+    // We show payment data. FYI
     private void showDetails(JSONObject response, String paymentAmount) {
         try {
             txtId.setText(response.getString("id"));
