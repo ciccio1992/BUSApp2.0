@@ -22,7 +22,9 @@ import com.example.busapp20.R;
 
 public class BackgroundService extends Service {
 
-    private static final String CHANNEL_ID = "BusAppServiceChannel";
+    private static final String CHANNEL_ID = "BusAppBackgroundServiceChannel";
+    private static final int ID = 1;
+
     public static WifiManager wifiManager;
     BroadcastReceiver myReceiver = null;
 
@@ -43,6 +45,7 @@ public class BackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        /*
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -52,16 +55,21 @@ public class BackgroundService extends Service {
                 .setContentTitle("BusApp Autoticket Service")
                 .setContentText("The service is running")
                 .setSmallIcon(R.drawable.ic_stat_persistentnotification)
+                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setColor(Color.parseColor("#FF5722"))
                 .setContentIntent(pendingIntent)
                 .build();
 
-        startForeground(1, notification);
+        startForeground(ID, notification);
+
 
 
         // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
         // inizializzazione del servizio.
         Toast.makeText(this, "Autoticket Service Started", Toast.LENGTH_SHORT).show();
+
+        */
 
         return START_STICKY;
     }

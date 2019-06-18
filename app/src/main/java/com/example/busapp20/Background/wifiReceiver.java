@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
 
@@ -115,7 +114,12 @@ public class wifiReceiver extends BroadcastReceiver {
                     } else {
                         Log.i(TAG, "Error opening the app automatically");
                     }
+                } else {
+
+                    Intent i = new Intent(context, OnbusNotificationService.class);
+                    context.startService(i);
                 }
+
 
                 if (autoticket) {
                     MainActivity.BuyTicketAlertDialogVersion(context);
@@ -130,5 +134,7 @@ public class wifiReceiver extends BroadcastReceiver {
             }
         }
     }
+
+
 }
 

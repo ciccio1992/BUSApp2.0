@@ -72,6 +72,9 @@
             android:name=".Background.BackgroundService"
             android:enabled="true"
             android:exported="true" />
+        <service android:name=".Background.OnbusNotificationService"
+            android:enabled="true"
+            android:exported="true"/>
         <service
             android:name=".Background.WifiLoopTimer"
             android:enabled="true"
