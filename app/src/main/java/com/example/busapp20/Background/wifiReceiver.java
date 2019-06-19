@@ -122,7 +122,7 @@ public class wifiReceiver extends BroadcastReceiver {
             /// (sensibility) out of 10 attempts means onBus is validated.
 
             /// IN HERE GOES THE CODE TO HANDLE YOU ARE MOVING ON THE BUS
-            if (successCounter >= sensibility && !onBus && !MainActivity.ticketvalid) {
+            if (successCounter >= sensibility && !onBus) {
 
                 // The moment the user get on the bus && the ticket is not running
 
@@ -130,37 +130,37 @@ public class wifiReceiver extends BroadcastReceiver {
 
                 //Toast.makeText(context, "YOU ARE ON THE BUS", Toast.LENGTH_SHORT).show();
 
-                if (autoTicket) {
+                if (!MainActivity.ticketvalid) {
+                    if (autoTicket) {
 
-                    /// Case that defines the task if the autoTicket is turned on in settings
+                        /// Case that defines the task if the autoTicket is turned on in settings
 
-                    MainActivity.BuyTicket(context); // It simply buys the ticket
+                        MainActivity.BuyTicket(context); // It simply buys the ticket
 
-                }
-
-                if (autoOpen) {
-
-                    /// Case that defines the task if the autoOpen is turned on in settings
-
-                    /// It simply launches the main activity
-
-                    PackageManager pm = context.getPackageManager();
-                    String packageName = "com.example.busapp20";
-
-                    Intent i = pm.getLaunchIntentForPackage(packageName);
-                    if (i != null) {
-                        context.startActivity(i);
-                    } else {
-                        Log.i(TAG, "Error opening the app automatically");
                     }
-                }
 
-                else if (!BackgroundService.notificationSent) {
+                    if (autoOpen) {
 
-                    // It knows if a notification has been sent already, elsewhere it shows
+                        /// Case that defines the task if the autoOpen is turned on in settings
 
-                    Intent i = new Intent(context, OnBusNotificationService.class);
-                    context.startService(i);
+                        /// It simply launches the main activity
+
+                        PackageManager pm = context.getPackageManager();
+                        String packageName = "com.example.busapp20";
+
+                        Intent i = pm.getLaunchIntentForPackage(packageName);
+                        if (i != null) {
+                            context.startActivity(i);
+                        } else {
+                            Log.i(TAG, "Error opening the app automatically");
+                        }
+                    } else if (!BackgroundService.notificationSent) {
+
+                        // It knows if a notification has been sent already, elsewhere it shows
+
+                        Intent i = new Intent(context, OnBusNotificationService.class);
+                        context.startService(i);
+                    }
                 }
 
 

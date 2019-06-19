@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         username = findViewById(R.id.tvUsernameHome);
         btBuyTicket = findViewById(R.id.btBuyTicket);
 
+        // Open settings when click on username
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +97,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // onCreate Main Activity a Background Service that keeps the app active is initialized.
+        // Hides the timer if the ticket is not running
+        if (!ticketvalid) {
+            HideTime();
+        }
+
+        // Creates the Background Service that keeps the app active.
         startService(new Intent(this, BackgroundService.class));
     }
 
@@ -325,12 +331,13 @@ public class MainActivity extends AppCompatActivity
     private void refreshBalance() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(Rounding(myBalance, 2) + " €");
+        balanceAmount.setText(String.format("%s €", Rounding(myBalance, 2)));
     }
 
     private void refreshUsername() {
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        String name = prefs.getString("username", getString(R.string.go_to_settings));
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
         username.setText(name);
     }
 
