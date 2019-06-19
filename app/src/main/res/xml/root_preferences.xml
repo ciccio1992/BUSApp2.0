@@ -61,4 +61,12 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Other Settings">
+
+        <Preference
+            app:key="restart"
+            app:title="Restart App"
+        />
+    </PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>

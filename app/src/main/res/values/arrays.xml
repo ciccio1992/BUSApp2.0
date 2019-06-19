@@ -11,11 +11,11 @@
     </string-array>
 
     <string-array name="autoticket_entries">
-        <item>Very fast (2 scans)</item>
-        <item>Fast (4 scans)</item>
-        <item>Normal (6 scans)</item>
-        <item>Slow (8 scans)</item>
-        <item>Very slow (10 scans)</item>
+        <item>Very fast</item>
+        <item>Fast</item>
+        <item>Normal</item>
+        <item>Slow</item>
+        <item>Very slow</item>
     </string-array>
 
     <string-array name="autoticket_values">

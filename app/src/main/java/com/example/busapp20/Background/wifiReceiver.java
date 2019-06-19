@@ -118,7 +118,6 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
             }
 
-            Log.i(TAG, "SuccessCounter: " + successCounter);
 
             /// (sensibility) out of 10 attempts means onBus is validated.
 
@@ -174,6 +173,9 @@ public class wifiReceiver extends BroadcastReceiver {
             if (counter == 10) {           //Counter RESET to simulate queue.
                 counter = 0;
             }
+
+            Log.i(TAG, "SuccessCounter: " + successCounter + " onbus: " + onBus);
+
         }
     }
 }

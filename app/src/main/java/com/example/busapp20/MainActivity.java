@@ -2,7 +2,9 @@ package com.example.busapp20;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     public static boolean ticketvalid = false;
     TextView balanceAmount, username;
     Button btBuyTicket;
+    private static final String TAG = "MAINACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,10 +134,27 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHARED PREFS
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
+
+        username.setText(name);
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        float myBalance = prefs.getFloat("Balance", 0);
+        balanceAmount.setText(Rounding(myBalance, 2) + " €");
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
-
         ///THE FOLLOWING CODE REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -157,14 +177,12 @@ public class MainActivity extends AppCompatActivity
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
             }
         }
-
         /// END PERMISSION REQUIRES
     }
 
     ///***  Buy a ticket and shows a snackbar notification in the current view.
-    /// Used in MainActivity
+    /// Used by the button in the MainActivity
     public void BuyTicket(@NonNull Context context, View view) {
-
         if (!ticketvalid) {     //We check whether if the user already nb
             SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             float myPrevBalance = prefs.getFloat("Balance", 0);     // Retrieving our current balance from SharedPrefs.
@@ -178,7 +196,6 @@ public class MainActivity extends AppCompatActivity
                 // New Data Applied
                 startTicket();
                 MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
-
             } else {
                 MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
             }
@@ -203,7 +220,6 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
-
             } else {
                 MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
                         "Please top-up your account.");
@@ -286,26 +302,6 @@ public class MainActivity extends AppCompatActivity
         }.start();
     }
 
-
-
-    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHARED PREFS
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
-
-        username.setText(name);
-
-
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(Rounding(myBalance, 2) + " €");
-    }
-
     ///*** Methods to launch secondary activities from side menu.
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
@@ -332,6 +328,42 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-
-
+    public static void restartApp(Context c) {
+        try {
+            //check if the context is given
+            if (c != null) {
+                //fetch the packagemanager so we can get the default launch activity
+                // (you can replace this intent with any other activity if you want
+                PackageManager pm = c.getPackageManager();
+                //check if we got the PackageManager
+                if (pm != null) {
+                    //create the intent with the default start activity for your application
+                    Intent mStartActivity = pm.getLaunchIntentForPackage(
+                            c.getPackageName()
+                    );
+                    if (mStartActivity != null) {
+                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //create a pending intent so the application is restarted after System.exit(0) was called.
+                        // We use an AlarmManager to call this intent in 100ms
+                        int mPendingIntentId = 223344;
+                        PendingIntent mPendingIntent = PendingIntent
+                                .getActivity(c, mPendingIntentId, mStartActivity,
+                                        PendingIntent.FLAG_CANCEL_CURRENT);
+                        AlarmManager mgr = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                        //kill the application
+                        System.exit(0);
+                    } else {
+                        Log.e(TAG, "Was not able to restart application, mStartActivity null");
+                    }
+                } else {
+                    Log.e(TAG, "Was not able to restart application, PM null");
+                }
+            } else {
+                Log.e(TAG, "Was not able to restart application, Context null");
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "Was not able to restart application");
+        }
+    }
 }

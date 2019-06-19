@@ -31,8 +31,6 @@ public class ToolsActivity extends AppCompatActivity {
     Button btScan;
     TextView tvLastResults, tvOnbus;
     ListView lvWifiScan;
-    private static Timer timer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,43 +55,18 @@ public class ToolsActivity extends AppCompatActivity {
                 UpdateTestData();
             }
         });
-
-        /*
-        if (timer == null) {
-            timer = new Timer();
-            TimerTask timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    resultsToString = "";
-                    for (int i = 0; i < 10; i++) {
-                        int temp = lastResults[i];
-                        String tempStr = String.valueOf(temp);
-                        resultsToString = resultsToString.concat(tempStr + " ");
-                    }
-
-                    tvOnbus.setText(String.valueOf(onBus));
-                    tvLastResults.setText(resultsToString);
-
-                    if (!(arrayList.isEmpty())) {
-
-                        lvWifiScan.setAdapter(new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_2, arrayList));
-                    }
-                }
-            };
-            timer.scheduleAtFixedRate(timerTask, 0, 2000);
-        }
-        */
     }
 
     ///*** Updates data received from wifiReceiver.java
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        UpdateTestData();
     }
 
     ///*** Uses values from wifiReceiver to build a String and show it in the Textview
     ///*** and shows the wifi list in the Listview
-    private void UpdateTestData() {
+    void UpdateTestData() {
         resultsToString = "";
         for (int i = 0; i < 10; i++) {
             int temp = lastResults[i];
@@ -106,7 +79,7 @@ public class ToolsActivity extends AppCompatActivity {
 
         if (!(arrayList.isEmpty())) {
 
-            lvWifiScan.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_2, arrayList));
+            lvWifiScan.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList));
 
 
         }
