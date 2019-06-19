@@ -37,7 +37,7 @@ import java.util.Locale;
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 //  ******************************************************************************************* //
 /// ***** BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR ***** //
-/// ***** ON A WIFI ACCESS POINT BASIS. PAYMENTS ARE MADE VIA PAYPAL AND ARE AUTOMATIC.   ***** //
+/// *****  WITH A WIFI DETECTION SYSTEM. THE FINAL USER WILL BE ABLE TO PAY VIA PAYPAL.   ***** //
 //  ******************************************************************************************* //
 
 
@@ -139,16 +139,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
-
-        username.setText(name);
-
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        float myBalance = prefs.getFloat("Balance", 0);
-        balanceAmount.setText(Rounding(myBalance, 2) + " €");
+        refreshUsername();
+        refreshBalance();
     }
 
 
@@ -180,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         /// END PERMISSION REQUIRES
     }
 
-    ///***  Buy a ticket and shows a snackbar notification in the current view.
+    ///  Buy a ticket and shows a snackbar notification in the current view.
     /// Used by the button in the MainActivity
     public void BuyTicket(@NonNull Context context, View view) {
         if (!ticketvalid) {     //We check whether if the user already nb
@@ -195,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                 editor.apply();
                 // New Data Applied
                 startTicket();
+                refreshBalance();
                 MakeSnackbar(view, "Ticket bought correctly!");     //You succeeded in buying your ticket!
             } else {
                 MakeSnackbar(view, "Not enough money. Please Top-up your account.");        // You failed because you are poor
@@ -204,7 +197,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    ///***  Buy a ticket with an Alert Dialog.
+    ///  Buy a ticket with an Alert Dialog.
     // It doesn't require a View type argument. Used for Autoticket.
     public static void BuyTicket(@NonNull Context context) {
         if (!ticketvalid) {
@@ -302,7 +295,7 @@ public class MainActivity extends AppCompatActivity
         }.start();
     }
 
-    ///*** Methods to launch secondary activities from side menu.
+    /// Methods to launch secondary activities from side menu.
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
@@ -328,6 +321,21 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    /// Methods used to refresh the info on the Main Activity
+    private void refreshBalance() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        float myBalance = prefs.getFloat("Balance", 0);
+        balanceAmount.setText(Rounding(myBalance, 2) + " €");
+    }
+
+    private void refreshUsername() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String name = prefs.getString("username", getString(R.string.go_to_settings));
+        username.setText(name);
+    }
+
+
+    /// Function to restart the app
     public static void restartApp(Context c) {
         try {
             //check if the context is given

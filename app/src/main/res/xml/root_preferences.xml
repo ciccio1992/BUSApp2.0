@@ -30,7 +30,8 @@
         <SwitchPreferenceCompat
             app:key="autoopen"
             app:summary="When your entry on the bus is confirmed"
-            app:title="Open the app automatically" />
+            app:title="Open the app automatically"
+            app:defaultValue="false"/>
 
         <ListPreference
             app:defaultValue="6"

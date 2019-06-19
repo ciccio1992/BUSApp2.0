@@ -53,6 +53,12 @@ public class SettingsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
+                            })
+                            .setNegativeButton("Restart now", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.restartApp(getContext());
+                                }
                             });
                     AlertDialog alertDialog = AlertBuilder.create();
                     alertDialog.show();

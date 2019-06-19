@@ -50,7 +50,7 @@ public class wifiReceiver extends BroadcastReceiver {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
         boolean autoTicket = sharedPreferences.getBoolean("autoticket", false);
-        boolean autoOpen = sharedPreferences.getBoolean("autoopen", true);
+        boolean autoOpen = sharedPreferences.getBoolean("autoopen", false);
 
         int sensibility = valueOf(Objects.requireNonNull(sharedPreferences.getString("level", "5")));
 
@@ -155,7 +155,7 @@ public class wifiReceiver extends BroadcastReceiver {
                     }
                 }
 
-                if (!BackgroundService.notificationSent) {
+                else if (!BackgroundService.notificationSent) {
 
                     // It knows if a notification has been sent already, elsewhere it shows
 
