@@ -34,7 +34,9 @@
 
     <!-- Autoticket Preferences -->
     <string name="autoticket_title">Buy the ticket automatically. Restart to make effective.</string>
-    <string name="wifi_sensibility_title">Wifi sensibility</string>
+    <string name="wifi_sensibility_title">App Reaction time</string>
+    <string name="wifi_sensibility_summary">Could cause false detections</string>
+
 
     <!-- topUp Activity -->
     <string name="topUp_proceed_to_paypal">Proceed to Paypal</string>

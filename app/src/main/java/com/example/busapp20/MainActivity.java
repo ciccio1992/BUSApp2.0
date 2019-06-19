@@ -78,6 +78,13 @@ public class MainActivity extends AppCompatActivity
         username = findViewById(R.id.tvUsernameHome);
         btBuyTicket = findViewById(R.id.btBuyTicket);
 
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings();
+            }
+        });
+
         // Action on ticket buy button pressed
         btBuyTicket.setOnClickListener(new View.OnClickListener() {
             @Override

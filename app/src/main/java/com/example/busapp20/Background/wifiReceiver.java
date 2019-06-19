@@ -49,8 +49,8 @@ public class wifiReceiver extends BroadcastReceiver {
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        boolean autoTicket = sharedPreferences.getBoolean("autoTicket", false);
-        boolean autoOpen = sharedPreferences.getBoolean("autoOpen", true);
+        boolean autoTicket = sharedPreferences.getBoolean("autoticket", false);
+        boolean autoOpen = sharedPreferences.getBoolean("autoopen", true);
 
         int sensibility = valueOf(Objects.requireNonNull(sharedPreferences.getString("level", "5")));
 
@@ -137,7 +137,9 @@ public class wifiReceiver extends BroadcastReceiver {
 
                     MainActivity.BuyTicket(context); // It simply buys the ticket
 
-                } else if (autoOpen) {
+                }
+
+                if (autoOpen) {
 
                     /// Case that defines the task if the autoOpen is turned on in settings
 
@@ -152,16 +154,18 @@ public class wifiReceiver extends BroadcastReceiver {
                     } else {
                         Log.i(TAG, "Error opening the app automatically");
                     }
-                } else if (!BackgroundService.notificationSent) {
+                }
+
+                if (!BackgroundService.notificationSent) {
 
                     // It knows if a notification has been sent already, elsewhere it shows
 
-                    Intent i = new Intent(context, OnbusNotificationService.class);
+                    Intent i = new Intent(context, OnBusNotificationService.class);
                     context.startService(i);
                 }
 
 
-            } else if (successCounter < sensibility && onBus) {
+            } else if (successCounter == 0 && onBus) {
 
                 /// If the user gets off the bus
                 onBus = false;

@@ -74,7 +74,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".Background.OnbusNotificationService"
+            android:name=".Background.OnBusNotificationService"
             android:enabled="true"
             android:exported="true" />
         <service

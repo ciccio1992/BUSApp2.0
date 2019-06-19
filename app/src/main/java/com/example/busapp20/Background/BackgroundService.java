@@ -2,17 +2,25 @@ package com.example.busapp20.Background;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.example.busapp20.MainActivity;
+import com.example.busapp20.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,7 +54,7 @@ public class BackgroundService extends Service {
 
                 }
             };
-            notificationTimer.schedule(timerTask, 1800000);
+            notificationTimer.schedule(timerTask, 1000*60*30); // = 30 minutes
             Log.i("BACKGROUND SERVICE", "Notification delay started.");
         }
     }
@@ -110,15 +118,13 @@ public class BackgroundService extends Service {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
-
     }
-
 
     ///*** Used for development
     @Override
     public void onDestroy() {
 
-        Toast.makeText(this, "Autoticket Service STOPPED", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Background Service STOPPED", Toast.LENGTH_LONG).show();
 
     }
 

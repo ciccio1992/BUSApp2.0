@@ -33,11 +33,12 @@
             app:title="Open the app automatically" />
 
         <ListPreference
-            app:defaultValue="5"
+            app:defaultValue="6"
             app:entries="@array/autoticket_entries"
             app:entryValues="@array/autoticket_values"
             app:key="level"
             app:title="@string/wifi_sensibility_title"
+            app:summary="@string/wifi_sensibility_summary"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat

@@ -21,7 +21,7 @@ import com.example.busapp20.R;
 //  ******************************************************************************************** //
 
 @SuppressLint("Registered")
-public class OnbusNotificationService extends BackgroundService {
+public class OnBusNotificationService extends BackgroundService {
 
     private static final String CHANNEL_ID = "BusAppTicketNotificationChannel";
     private static final int ID = 2;
@@ -32,7 +32,7 @@ public class OnbusNotificationService extends BackgroundService {
 
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
