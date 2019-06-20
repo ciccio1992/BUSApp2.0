@@ -36,9 +36,15 @@ import java.util.Locale;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 //  ******************************************************************************************* //
-/// ***** BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR       //
-///        WITH A WIFI DETECTION SYSTEM. THE FINAL USER WILL BE ABLE TO PAY VIA PAYPAL.  ****** //
+///       BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR       //
+///        WITH A WIFI DETECTION SYSTEM. THE FINAL USER WILL BE ABLE TO PAY VIA PAYPAL.         //
 //  ******************************************************************************************* //
+
+
+
+// Full documentation available in the folder docsbyDoxygen:
+// '///' means the following code is commented and available in Doxygen too.
+
 
 
 public class MainActivity extends AppCompatActivity

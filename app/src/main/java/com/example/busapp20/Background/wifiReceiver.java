@@ -81,9 +81,9 @@ public class wifiReceiver extends BroadcastReceiver {
 
             for (ScanResult scanResult : results) {
 
-                /// TARGET MAC ADDRESSES ARE WRITTEN IN HERE!!
+                // TARGET MAC ADDRESSES ARE WRITTEN IN HERE!!
 
-                /// COUPLE 1
+                // COUPLE 1
                 if (scanResult.BSSID.equals("00:3a:98:7d:4a:c1") && scanResult.level > -70) {
                     isFound++;
                 }
@@ -91,7 +91,7 @@ public class wifiReceiver extends BroadcastReceiver {
                     isFound++;
                 }
 
-                ///COUPLE 2
+                // COUPLE 2
                 if (scanResult.BSSID.equals("1c:b0:44:12:9f:de") && scanResult.level > -70) {
                     isFound++;
                 }
@@ -99,18 +99,18 @@ public class wifiReceiver extends BroadcastReceiver {
                     isFound++;
                 }
 
-                /// COUPLE 3
+                // COUPLE 3
                 if (scanResult.BSSID.equals("d8:ce:3a:12:aa:1f") && scanResult.level > -55) {
                     isFound++;
                 }
-                else if (scanResult.BSSID.equals("b2:70:2d:58:cd:18") && scanResult.level > -70) {
+                else if (scanResult.BSSID.equals("b2:70:2d:58:cd:18") && scanResult.level > -55) {
                     isFound++;
                 }
 
-                ///...
+                //...
             }
 
-            /// Eventually YOU ARE ON THE BUS IF YOU RECEIVE THE ACCESS POINTS WITH ENOUGH STRENGTH.
+            /// Eventually you are on the bus if the access point are detected with enough strenght.
             /// Every Positive AP increments int isFound.
             /// If isFound == 2 (two strong APs in a single scan) enough times in the
             /// last 10 scans, YOU ARE CONSIDERED ON THE BUS.
