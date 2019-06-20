@@ -20,10 +20,10 @@ import java.util.Objects;
 import static java.lang.Integer.valueOf;
 
 
-///  ******************************************************************************************* //
-///  ***     BROADCAST RECEIVER CLASS THAT RECEIVES THE COMPLETED WIFI SCANS AND       ********* //
-///  *** ANALYZE THE RESULTS. IT HANDLES THE ONBUS DETECTION AND AUTOTICKET FUNCTIONS. ********* //
-///  ******************************************************************************************* //
+//   ******************************************************************************************* //
+///          BROADCAST RECEIVER CLASS THAT RECEIVES THE COMPLETED WIFI SCANS AND                 //
+///      ANALYZE THE RESULTS. IT HANDLES THE ONBUS DETECTION AND AUTOTICKET FUNCTIONS.           //
+//   ******************************************************************************************* //
 
 
 public class wifiReceiver extends BroadcastReceiver {

@@ -45,12 +45,150 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private static final String TAG = "MAINACTIVITY";
     @SuppressLint("StaticFieldLeak")
     public static TextView time, time_label;
     public static boolean ticketvalid = false;
     TextView balanceAmount, username;
     Button btBuyTicket;
-    private static final String TAG = "MAINACTIVITY";
+
+    ///  Buy a ticket with an Alert Dialog.
+    // It doesn't require a View type argument. Used for Autoticket.
+    public static void BuyTicket(@NonNull Context context) {
+        if (!ticketvalid) {
+            /// Code to get our previous balance from SharedPreferences
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);
+
+            // Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);
+            if (newBalance >= 0) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+            } else {
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
+                        "Please top-up your account.");
+            }
+        }
+    }
+
+    /// Creates a Snackbar!
+    private static void MakeSnackbar(View view, String string) {
+        Snackbar.make(view, string, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    /// DEPRECATED: Creates an Alert Dialog with a single button.
+    public static void MakeAlertDialog(Context context, String string) {
+        AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
+        AlertBuilder.setMessage(string);
+        AlertBuilder.setCancelable(true);
+        AlertBuilder.setPositiveButton(
+                "Ok!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = AlertBuilder.create();
+        alertDialog.show();
+    }
+
+    /// Method to show time TextView: when timer starts
+    private static void Showtime() {
+        time.setVisibility(View.VISIBLE);
+        time_label.setVisibility(View.VISIBLE);
+    }
+
+    /// Method to hide time TextView: on app first start or when time finishes
+    private static void HideTime() {
+
+        Log.i("MAIN", "Now Timer should be set hidden!");
+        time.setVisibility(View.INVISIBLE);
+        time_label.setVisibility(View.INVISIBLE);
+    }
+
+    /// Rounding method
+    public static double Rounding(double value, int numCifreDecimali) {
+        double temp = Math.pow(10, numCifreDecimali);
+        return Math.round(value * temp) / temp;
+    }
+
+    /// Method to set the ticket as bought
+    private static void startTicket() {
+        Showtime();
+        ticketvalid = true;
+        startTimer();
+        BackgroundService.setNotificationDelay();
+    }
+
+    /// Method to set the ticket as not bought
+    private static void stopTicket() {
+        HideTime();
+        ticketvalid = false;
+        BackgroundService.notificationSent = false;
+
+    }
+
+    /// Method to start the ticket countdown timer
+    private static void startTimer() {
+
+        new CountDownTimer(5400000, 1000) {     //Ticket timer implementation
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
+                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
+                time.setText(String.format(Locale.ITALY, "%02d : %02d : %02d", hours, minutes, seconds));
+            }
+
+            public void onFinish() {
+                stopTicket();       // On time finish run function routine.
+            }
+        }.start();
+    }
+
+    /// Function to restart the app
+    public static void restartApp(Context c) {
+        try {
+            //check if the context is given
+            if (c != null) {
+                //fetch the packagemanager so we can get the default launch activity
+                // (you can replace this intent with any other activity if you want
+                PackageManager pm = c.getPackageManager();
+                //check if we got the PackageManager
+                if (pm != null) {
+                    //create the intent with the default start activity for your application
+                    Intent mStartActivity = pm.getLaunchIntentForPackage(
+                            c.getPackageName()
+                    );
+                    if (mStartActivity != null) {
+                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //create a pending intent so the application is restarted after System.exit(0) was called.
+                        // We use an AlarmManager to call this intent in 100ms
+                        int mPendingIntentId = 223344;
+                        PendingIntent mPendingIntent = PendingIntent
+                                .getActivity(c, mPendingIntentId, mStartActivity,
+                                        PendingIntent.FLAG_CANCEL_CURRENT);
+                        AlarmManager mgr = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                        //kill the application
+                        System.exit(0);
+                    } else {
+                        Log.e(TAG, "Was not able to restart application, mStartActivity null");
+                    }
+                } else {
+                    Log.e(TAG, "Was not able to restart application, PM null");
+                }
+            } else {
+                Log.e(TAG, "Was not able to restart application, Context null");
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "Was not able to restart application");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +287,6 @@ public class MainActivity extends AppCompatActivity
         refreshBalance();
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -205,104 +342,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    ///  Buy a ticket with an Alert Dialog.
-    // It doesn't require a View type argument. Used for Autoticket.
-    public static void BuyTicket(@NonNull Context context) {
-        if (!ticketvalid) {
-            /// Code to get our previous balance from SharedPreferences
-            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            float myPrevBalance = prefs.getFloat("Balance", 0);
-
-            // Updating Balance on SharedPreferences
-            float newBalance = (myPrevBalance - 1.5f);
-            if (newBalance >= 0) {
-                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putFloat("Balance", newBalance);
-                editor.apply();
-                // New Data Applied
-                startTicket();
-            } else {
-                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
-                        "Please top-up your account.");
-            }
-        }
-    }
-
-    /// Creates a Snackbar!
-    private static void MakeSnackbar(View view, String string) {
-        Snackbar.make(view, string, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
-    /// DEPRECATED: Creates an Alert Dialog with a single button.
-    public static void MakeAlertDialog(Context context, String string) {
-        AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(context);
-        AlertBuilder.setMessage(string);
-        AlertBuilder.setCancelable(true);
-        AlertBuilder.setPositiveButton(
-                "Ok!",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = AlertBuilder.create();
-        alertDialog.show();
-    }
-
-    /// Method to show time TextView: when timer starts
-    private static void Showtime() {
-        time.setVisibility(View.VISIBLE);
-        time_label.setVisibility(View.VISIBLE);
-    }
-
-    /// Method to hide time  TextView: on app first start or when time finishes
-    private static void HideTime() {
-
-        Log.i("MAIN", "Now Timer should be set hidden!");
-        time.setVisibility(View.INVISIBLE);
-        time_label.setVisibility(View.INVISIBLE);
-    }
-
-    /// Rounding method
-    public static double Rounding(double value, int numCifreDecimali) {
-        double temp = Math.pow(10, numCifreDecimali);
-        return Math.round(value * temp) / temp;
-    }
-
-    /// Method to set the ticket as bought
-    private static void startTicket() {
-        Showtime();
-        ticketvalid = true;
-        startTimer();
-        BackgroundService.setNotificationDelay();
-    }
-
-    /// Method to set the ticket as not bought
-    private static void stopTicket() {
-        HideTime();
-        ticketvalid = false;
-        BackgroundService.notificationSent = false;
-
-    }
-
-    /// Method to start the ticket countdown timer
-    private static void startTimer() {
-
-        new CountDownTimer(5400000, 1000) {     //Ticket timer implementation
-            public void onTick(long millisUntilFinished) {
-                int seconds = (int) (millisUntilFinished / 1000) % 60;              //millis formatting to human readable format.
-                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
-                int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
-                time.setText(String.format(Locale.ITALY, "%02d : %02d : %02d", hours, minutes, seconds));
-            }
-
-            public void onFinish() {
-                stopTicket();       // On time finish run function routine.
-            }
-        }.start();
-    }
-
     /// Methods to launch secondary activities from side menu.
     public void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
@@ -341,46 +380,5 @@ public class MainActivity extends AppCompatActivity
                 PreferenceManager.getDefaultSharedPreferences(this);
         String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
         username.setText(name);
-    }
-
-
-    /// Function to restart the app
-    public static void restartApp(Context c) {
-        try {
-            //check if the context is given
-            if (c != null) {
-                //fetch the packagemanager so we can get the default launch activity
-                // (you can replace this intent with any other activity if you want
-                PackageManager pm = c.getPackageManager();
-                //check if we got the PackageManager
-                if (pm != null) {
-                    //create the intent with the default start activity for your application
-                    Intent mStartActivity = pm.getLaunchIntentForPackage(
-                            c.getPackageName()
-                    );
-                    if (mStartActivity != null) {
-                        mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //create a pending intent so the application is restarted after System.exit(0) was called.
-                        // We use an AlarmManager to call this intent in 100ms
-                        int mPendingIntentId = 223344;
-                        PendingIntent mPendingIntent = PendingIntent
-                                .getActivity(c, mPendingIntentId, mStartActivity,
-                                        PendingIntent.FLAG_CANCEL_CURRENT);
-                        AlarmManager mgr = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
-                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-                        //kill the application
-                        System.exit(0);
-                    } else {
-                        Log.e(TAG, "Was not able to restart application, mStartActivity null");
-                    }
-                } else {
-                    Log.e(TAG, "Was not able to restart application, PM null");
-                }
-            } else {
-                Log.e(TAG, "Was not able to restart application, Context null");
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "Was not able to restart application");
-        }
     }
 }
