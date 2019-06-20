@@ -1,7 +1,6 @@
 package com.example.busapp20;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,18 +10,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static com.example.busapp20.Background.BackgroundService.wifiManager;
+import static com.example.busapp20.Background.wifiReceiver.arrayList;
 import static com.example.busapp20.Background.wifiReceiver.lastResults;
 import static com.example.busapp20.Background.wifiReceiver.onBus;
 import static com.example.busapp20.Background.wifiReceiver.resultsToString;
-import static com.example.busapp20.Background.wifiReceiver.arrayList;
 
 
 //  ******************************************************************************************** //
-/// *** THIS CLASS HANDLES THE TOOLS PAGE *** //
+/// **************************** THIS CLASS HANDLES THE TOOLS PAGE ***************************** //
 //  ******************************************************************************************** //
 
 
@@ -72,10 +68,9 @@ public class ToolsActivity extends AppCompatActivity {
             int temp = lastResults[i];
             String tempStr = " -";
 
-            if(temp == 1){
+            if (temp == 1) {
                 tempStr = "◦";
-            }
-            else if(temp == 2){
+            } else if (temp == 2) {
                 tempStr = " ●";
             }
             resultsToString = resultsToString.concat(tempStr + " ");
