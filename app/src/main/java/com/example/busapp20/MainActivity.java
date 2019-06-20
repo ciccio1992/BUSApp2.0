@@ -58,27 +58,131 @@ public class MainActivity extends AppCompatActivity
     TextView balanceAmount, username;
     Button btBuyTicket;
 
-    ///  Buy a ticket with an Alert Dialog.
-    // It doesn't require a View type argument. Used for Autoticket.
-    public static void BuyTicket(@NonNull Context context) {
-        if (!ticketvalid) {
-            /// Code to get our previous balance from SharedPreferences
-            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            float myPrevBalance = prefs.getFloat("Balance", 0);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-            // Updating Balance on SharedPreferences
-            float newBalance = (myPrevBalance - 1.5f);
-            if (newBalance >= 0) {
-                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putFloat("Balance", newBalance);
-                editor.apply();
-                // New Data Applied
-                startTicket();
-            } else {
-                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
-                        "Please top-up your account.");
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbarHistory);
+        setSupportActionBar(toolbar);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MakeSnackbar(view, "Not available yet.");
+            }
+        });
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Connecting JAVA to XML
+        time = findViewById(R.id.tvTimeLeft);
+        time_label = findViewById(R.id.tvTimeLeftLabel);
+        balanceAmount = findViewById(R.id.amountValue);
+        username = findViewById(R.id.tvUsernameHome);
+        btBuyTicket = findViewById(R.id.btBuyTicket);
+
+        /// Open settings when click on username
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings();
+            }
+        });
+
+        /// Action on ticket buy button pressed
+        btBuyTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuyTicket(getBaseContext(), v);
+            }
+        });
+
+        /// Hides the timer if the ticket is not running
+        if (!ticketvalid) {
+            HideTime();
+        }
+
+        // Creates the Background Service that keeps the app active.
+        startService(new Intent(this, BackgroundService.class));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /// REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 87);
             }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_WIFI_STATE}, 87);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.INTERNET}, 87);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
+            }
+        }
+
+        // END PERMISSION REQUIRES
+    }
+
+    // UI back button
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    /// Menu UI Buttons -> On item pressed, a function to launch the correspondent activity is started.
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_history) {
+            openHistory();
+        } else if (id == R.id.nav_tools) {
+            openTools();
+        } else if (id == R.id.nav_share) {
+            openShare();
+        } else if (id == R.id.nav_topup) {
+            openTopUp();
+        } else if (id == R.id.nav_settings) {
+            openSettings();
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHARED PREFS
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        refreshUsername();
+        refreshBalance();
     }
 
     /// Creates a Snackbar!
@@ -196,134 +300,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbarHistory);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MakeSnackbar(view, "Not available yet.");
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Connecting JAVA to XML
-        time = findViewById(R.id.tvTimeLeft);
-        time_label = findViewById(R.id.tvTimeLeftLabel);
-        balanceAmount = findViewById(R.id.amountValue);
-        username = findViewById(R.id.tvUsernameHome);
-        btBuyTicket = findViewById(R.id.btBuyTicket);
-
-        /// Open settings when click on username
-        username.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettings();
-            }
-        });
-
-        /// Action on ticket buy button pressed
-        btBuyTicket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BuyTicket(getBaseContext(), v);
-            }
-        });
-
-        // Hides the timer if the ticket is not running
-        if (!ticketvalid) {
-            HideTime();
-        }
-
-        // Creates the Background Service that keeps the app active.
-        startService(new Intent(this, BackgroundService.class));
-    }
-
-    // UI back button
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    /// Menu UI Buttons -> On item pressed, a function to launch the correspondent activity is started.
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_history) {
-            openHistory();
-        } else if (id == R.id.nav_tools) {
-            openTools();
-        } else if (id == R.id.nav_share) {
-            openShare();
-        } else if (id == R.id.nav_topup) {
-            openSend();
-        } else if (id == R.id.nav_settings) {
-            openSettings();
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    /// EVERY TIME MAIN ACTIVITY IS FOCUSED OUR BALANCE IS UPDATED FROM SHARED PREFS
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        refreshUsername();
-        refreshBalance();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        /// REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 87);
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_WIFI_STATE}, 87);
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.INTERNET}, 87);
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
-            }
-        }
-
-        // END PERMISSION REQUIRES
-    }
-
-    ///  Buy a ticket and shows a snackbar notification in the current view.
+    /// Buy a ticket and shows a snackbar notification in the current view.
     /// Used by the button in the MainActivity
     public void BuyTicket(@NonNull Context context, View view) {
         if (!ticketvalid) {     //We check whether if the user already nb
@@ -348,43 +325,75 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /// Methods to launch secondary activities from side menu.
-    public void openHistory() {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
+    ///  Buy a ticket with an Alert Dialog.
+    // It doesn't require a View type argument. Used for Autoticket.
+    public static void BuyTicket(@NonNull Context context) {
+        if (!ticketvalid) {
+            /// Code to get our previous balance from SharedPreferences
+            SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            float myPrevBalance = prefs.getFloat("Balance", 0);
+
+            // Updating Balance on SharedPreferences
+            float newBalance = (myPrevBalance - 1.5f);
+            if (newBalance >= 0) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putFloat("Balance", newBalance);
+                editor.apply();
+                // New Data Applied
+                startTicket();
+            } else {
+                MakeAlertDialog(context, "Not enough money for auto-ticket.\n" +
+                        "Please top-up your account.");
+            }
+        }
     }
 
-    public void openTools() {
-        Intent intent = new Intent(this, ToolsActivity.class);
-        startActivity(intent);
-    }
-
-    public void openShare() {
-        Intent intent = new Intent(this, ShareActivity.class);
-        startActivity(intent);
-    }
-
-    public void openSend() {
-        Intent intent = new Intent(this, TopupActivity.class);
-        startActivity(intent);
-    }
-
-    public void openSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
-
-    /// Methods used to refresh the info on the Main Activity
+    /// Method used to refresh the balance on the Main Activity
     private void refreshBalance() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         float myBalance = prefs.getFloat("Balance", 0);
         balanceAmount.setText(String.format("%s €", Rounding(myBalance, 2)));
     }
 
+    /// Method used to refresh the username on the Main Activity
     private void refreshUsername() {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         String name = sharedPreferences.getString("username", getString(R.string.go_to_settings));
         username.setText(name);
+    }
+
+
+
+    //*********************** METHODS LAUNCHING OTHER ACTIVITIES**********************//
+
+    /// Methods to launch the history activity from side menu.
+    public void openHistory() {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    /// Methods to launch the development tools activity from side menu.
+    public void openTools() {
+        Intent intent = new Intent(this, ToolsActivity.class);
+        startActivity(intent);
+    }
+
+    /// Methods to launch the share activity from side menu.
+    public void openShare() {
+        Intent intent = new Intent(this, ShareActivity.class);
+        startActivity(intent);
+    }
+
+    /// Methods to launch send the topUp activity from side menu.
+    public void openTopUp() {
+        Intent intent = new Intent(this, TopupActivity.class);
+        startActivity(intent);
+    }
+
+    /// Methods to launch the settings activity from side menu.
+    public void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
