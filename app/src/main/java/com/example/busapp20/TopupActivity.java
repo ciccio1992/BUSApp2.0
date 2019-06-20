@@ -30,8 +30,8 @@ import java.math.BigDecimal;
 import Config.Config;       // We store here our Key
 
 //  ******************************************************************************************* //
-/// ***** TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET. ***** //
-/// *****                         THIS IS PAYPAL IN - APP IMPLEMENTATION                  ***** //
+///       TOPUP ACTIVITY USES PAYPAL APIS TO ALLOW USERS TO LOAD MONEY ON THEIR e-WALLET.       //
+///       THIS IS PAYPAL IN - APP IMPLEMENTATION                                                //
 //  ******************************************************************************************* //
 
 public class TopupActivity extends AppCompatActivity implements View.OnClickListener {

@@ -11,7 +11,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 //  ******************************************************************************************** //
-/// ***                 THIS CLASS HANDLES THE SETTINGS "SHARED PREFS" PAGE                  *** //
+///                     THIS CLASS HANDLES THE SETTINGS "SHARED PREFS" PAGE                      //
 //  ******************************************************************************************** //
 
 public class SettingsActivity extends AppCompatActivity {

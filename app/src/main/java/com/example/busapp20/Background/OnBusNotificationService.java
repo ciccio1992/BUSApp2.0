@@ -17,7 +17,7 @@ import com.example.busapp20.MainActivity;
 import com.example.busapp20.R;
 
 //  ******************************************************************************************** //
-/// *** THIS CLASS CREATES A HEARABLE NOTIFICATION TO REMIND THE USER TO BUY A TICKET *** //
+///         THIS CLASS CREATES A HEARABLE NOTIFICATION TO REMIND THE USER TO BUY A TICKET        //
 //  ******************************************************************************************** //
 
 @SuppressLint("Registered")

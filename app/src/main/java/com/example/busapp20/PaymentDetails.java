@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 //  ******************************************************************************************** //
-/// *** ACTIVITY SHOWN AFTER SUCCESSFUL PAYMENT *** //
+///                               ACTIVITY SHOWN AFTER SUCCESSFUL PAYMENT                        //
 //  ******************************************************************************************** //
 
 public class PaymentDetails extends AppCompatActivity {

@@ -27,7 +27,7 @@ import java.util.TimerTask;
 
 
 //  ****************************************************************************************** //
-/// *** THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS THE APP WORKING IN BACKGROUND *** //
+///     THIS CLASS HANDLES THE BACKGROUND SERVICE THAT KEEPS THE APP WORKING IN BACKGROUND     //
 //  ****************************************************************************************** //
 
 public class BackgroundService extends Service {

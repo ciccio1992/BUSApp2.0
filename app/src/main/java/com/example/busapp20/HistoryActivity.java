@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/// Not yet implemented in a working way. The list is temporarily fake.
-//  Its development is on the TO-DO list.
+/// PROTOTYPE CLASS. Not yet implemented in a working way. The list is temporarily fake.
 
 public class HistoryActivity extends AppCompatActivity {
 

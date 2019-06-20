@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.example.busapp20.Background.BackgroundService;
 
 //  ******************************************************************************************** //
-/// *** THS CLASS RECEIVES THE BOOT COMPLETED BROADCAST AND STARTS THE BACKGROUND SERVICE *** //
+///       THS CLASS RECEIVES THE BOOT COMPLETED BROADCAST AND STARTS THE BACKGROUND SERVICE      //
 //  ******************************************************************************************** //
 
 public class StartActivityOnBoot extends BroadcastReceiver {

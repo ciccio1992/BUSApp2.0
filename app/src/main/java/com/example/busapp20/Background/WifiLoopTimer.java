@@ -17,7 +17,7 @@ import java.util.TimerTask;
 import static java.lang.Integer.valueOf;
 
 //  ******************************************************************************************** //
-/// *** THIS CLASS HANDLES AUTOMATIC WIFI SCANS WITH A TIMER. RESULTS ARE CATCH IN WIFIRECEIVER *** //
+///  THIS CLASS HANDLES AUTOMATIC WIFI SCANS WITH A TIMER. RESULTS ARE CATCH IN WIFIRECEIVER     //
 //  ******************************************************************************************** //
 
 public class WifiLoopTimer extends BackgroundService {

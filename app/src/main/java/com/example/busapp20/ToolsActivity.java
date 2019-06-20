@@ -18,7 +18,7 @@ import static com.example.busapp20.Background.wifiReceiver.resultsToString;
 
 
 //  ******************************************************************************************** //
-/// **************************** THIS CLASS HANDLES THE TOOLS PAGE ***************************** //
+///                    THIS CLASS HANDLES THE DEVELOPER TOOLS ACTIVITY                           //
 //  ******************************************************************************************** //
 
 
