@@ -36,8 +36,8 @@ import java.util.Locale;
 
 import static com.example.busapp20.TopupActivity.MY_PREFS_NAME;
 //  ******************************************************************************************* //
-/// ***** BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR ***** //
-/// *****  WITH A WIFI DETECTION SYSTEM. THE FINAL USER WILL BE ABLE TO PAY VIA PAYPAL.   ***** //
+/// ***** BUSAPP IS AN APPLICATION DESIGNED TO ALLOW A TICKET PAYMENT ON A BUS OR SIMILAR       //
+///        WITH A WIFI DETECTION SYSTEM. THE FINAL USER WILL BE ABLE TO PAY VIA PAYPAL.  ****** //
 //  ******************************************************************************************* //
 
 
@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Connecting JAVA to XML
+        // Connecting JAVA to XML
         time = findViewById(R.id.tvTimeLeft);
         time_label = findViewById(R.id.tvTimeLeftLabel);
         balanceAmount = findViewById(R.id.amountValue);
         username = findViewById(R.id.tvUsernameHome);
         btBuyTicket = findViewById(R.id.btBuyTicket);
 
-        // Open settings when click on username
+        /// Open settings when click on username
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Action on ticket buy button pressed
+        /// Action on ticket buy button pressed
         btBuyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         startService(new Intent(this, BackgroundService.class));
     }
 
-    // UI back buton
+    // UI back button
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Menu UI Buttons -> On item pressed, a function to launch the activity is started.
+    /// Menu UI Buttons -> On item pressed, a function to launch the correspondent activity is started.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        ///THE FOLLOWING CODE REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
+
+        /// REQUIRES PERMISSIONS ON RUNTIME IF NEEDED!
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -175,7 +176,8 @@ public class MainActivity extends AppCompatActivity
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 87);
             }
         }
-        /// END PERMISSION REQUIRES
+
+        // END PERMISSION REQUIRES
     }
 
     ///  Buy a ticket and shows a snackbar notification in the current view.
