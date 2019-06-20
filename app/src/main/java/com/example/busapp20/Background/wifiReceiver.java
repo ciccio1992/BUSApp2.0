@@ -87,16 +87,23 @@ public class wifiReceiver extends BroadcastReceiver {
                 if (scanResult.BSSID.equals("00:3a:98:7d:4a:c1") && scanResult.level > -70) {
                     isFound++;
                 }
-                if (scanResult.BSSID.equals("00:3a:98:7d:4a:c2") && scanResult.level > -70) {
+                else if (scanResult.BSSID.equals("00:3a:98:7d:4a:c2") && scanResult.level > -70) {
                     isFound++;
                 }
-
 
                 ///COUPLE 2
                 if (scanResult.BSSID.equals("1c:b0:44:12:9f:de") && scanResult.level > -70) {
                     isFound++;
                 }
-                if (scanResult.BSSID.equals("62:b0:44:12:9f:df") && scanResult.level > -70) {
+                else if (scanResult.BSSID.equals("62:b0:44:12:9f:df") && scanResult.level > -70) {
+                    isFound++;
+                }
+
+                /// COUPLE 3
+                if (scanResult.BSSID.equals("d8:ce:3a:12:aa:1f") && scanResult.level > -55) {
+                    isFound++;
+                }
+                else if (scanResult.BSSID.equals("b2:70:2d:58:cd:18") && scanResult.level > -70) {
                     isFound++;
                 }
 

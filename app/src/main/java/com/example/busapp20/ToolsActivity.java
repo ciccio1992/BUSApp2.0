@@ -70,7 +70,14 @@ public class ToolsActivity extends AppCompatActivity {
         resultsToString = "";
         for (int i = 0; i < 10; i++) {
             int temp = lastResults[i];
-            String tempStr = String.valueOf(temp);
+            String tempStr = " -";
+
+            if(temp == 1){
+                tempStr = "◦";
+            }
+            else if(temp == 2){
+                tempStr = " ●";
+            }
             resultsToString = resultsToString.concat(tempStr + " ");
         }
 
