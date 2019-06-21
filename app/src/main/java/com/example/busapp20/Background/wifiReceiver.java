@@ -52,19 +52,21 @@ public class wifiReceiver extends BroadcastReceiver {
         boolean autoTicket = sharedPreferences.getBoolean("autoticket", false);
         boolean autoOpen = sharedPreferences.getBoolean("autoopen", false);
 
-        int sensibility = valueOf(Objects.requireNonNull(sharedPreferences.getString("level", "5")));
+        int sensibility = valueOf(Objects.requireNonNull(sharedPreferences
+                .getString("level", "5")));
 
 
         /// Triggered on wifi scan's result available broadcast received
 
-        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext()
+                .getSystemService(Context.WIFI_SERVICE);
         results = wifiManager.getScanResults();
         arrayList = new ArrayList<>();
         int isFound = 0;
 
         /// Counts the number of successful Wi-Fi scans.
 
-        int successCounter = 0;     // Number of Success (2) in the last 10 attempts.
+        int successCounter = 0;     // Number of Successes (2 AP detected) in the last 10 attempts.
 
         /// We build a list with available networks.
 

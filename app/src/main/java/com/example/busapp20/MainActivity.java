@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /// Menu UI Buttons -> On item pressed, a function to launch the correspondent activity is started.
+    /// Menu UI Buttons: On item pressed, it launches the correspondent method.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
