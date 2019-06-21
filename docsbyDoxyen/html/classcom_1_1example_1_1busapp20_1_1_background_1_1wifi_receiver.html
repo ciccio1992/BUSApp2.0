@@ -103,7 +103,7 @@ static ArrayList&lt; String &gt;&#160;</td><td class="memItemRight" valign="bott
 <tr class="separator:a99e60ad617ae4111d81d9c8c70fba79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>******************************************************************************************* // *** BROADCAST RECEIVER CLASS THAT RECEIVES THE COMPLETED WIFI SCANS AND ********* // *** ANALYZE THE RESULTS. IT HANDLES THE ONBUS DETECTION AND AUTOTICKET FUNCTIONS. ********* // ******************************************************************************************* // </p>
+<div class="textblock"><p>BROADCAST RECEIVER CLASS THAT RECEIVES THE COMPLETED WIFI SCANS AND // ANALYZE THE RESULTS. IT HANDLES THE ONBUS DETECTION AND AUTOTICKET FUNCTIONS. // </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0ccca96034605517ccdfdc95e708adb5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ccca96034605517ccdfdc95e708adb5">&#9670;&nbsp;</a></span>onReceive()</h2>
@@ -134,12 +134,7 @@ static ArrayList&lt; String &gt;&#160;</td><td class="memItemRight" valign="bott
 <p>Counts the number of successful Wi-Fi scans.</p>
 <p>We build a list with available networks.</p>
 <p>Array created for development reasons</p>
-<p>TARGET MAC ADDRESSES ARE WRITTEN IN HERE!!</p>
-<p>COUPLE 1</p>
-<p>COUPLE 2</p>
-<p>COUPLE 3</p>
-<p>...</p>
-<p>Eventually YOU ARE ON THE BUS IF YOU RECEIVE THE ACCESS POINTS WITH ENOUGH STRENGTH. Every Positive AP increments int isFound. If isFound == 2 (two strong APs in a single scan) enough times in the last 10 scans, YOU ARE CONSIDERED ON THE BUS.</p>
+<p>Eventually you are on the bus if the access point are detected with enough strenght. Every Positive AP increments int isFound. If isFound == 2 (two strong APs in a single scan) enough times in the last 10 scans, YOU ARE CONSIDERED ON THE BUS.</p>
 <p>(sensibility) out of 10 attempts means onBus is validated.</p>
 <p>IN HERE GOES THE CODE TO HANDLE YOU ARE MOVING ON THE BUS</p>
 <p>Case that defines the task if the autoTicket is turned on in settings</p>
