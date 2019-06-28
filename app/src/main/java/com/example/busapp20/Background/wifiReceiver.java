@@ -51,6 +51,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 PreferenceManager.getDefaultSharedPreferences(context);
         boolean autoTicket = sharedPreferences.getBoolean("autoticket", false);
         boolean autoOpen = sharedPreferences.getBoolean("autoopen", false);
+        boolean notification = sharedPreferences.getBoolean("notification", true);
 
         int sensibility = valueOf(Objects.requireNonNull(sharedPreferences
                 .getString("level", "5")));
@@ -86,6 +87,7 @@ public class wifiReceiver extends BroadcastReceiver {
                 // TARGET MAC ADDRESSES ARE WRITTEN IN HERE!!
 
                 // COUPLE 1
+                /*
                 if (scanResult.BSSID.equals("00:3a:98:7d:4a:c1") && scanResult.level > -70) {
                     isFound++;
                 }
@@ -94,20 +96,25 @@ public class wifiReceiver extends BroadcastReceiver {
                 }
 
                 // COUPLE 2
+
                 if (scanResult.BSSID.equals("1c:b0:44:12:9f:de") && scanResult.level > -70) {
                     isFound++;
                 }
                 else if (scanResult.BSSID.equals("62:b0:44:12:9f:df") && scanResult.level > -70) {
                     isFound++;
                 }
+                */
+
+
+                // IPHONE DI MARCO E BUS
 
                 // COUPLE 3
-                if (scanResult.BSSID.equals("d8:ce:3a:12:aa:1f") && scanResult.level > -55) {
+                if (scanResult.BSSID.equals("d8:ce:3a:12:aa:1f") && scanResult.level > -60) {
+                    isFound++;
+                } else if (scanResult.BSSID.equals("b2:70:2d:58:cd:18") && scanResult.level > -60) {
                     isFound++;
                 }
-                else if (scanResult.BSSID.equals("b2:70:2d:58:cd:18") && scanResult.level > -55) {
-                    isFound++;
-                }
+
 
                 //...
             }
@@ -163,12 +170,14 @@ public class wifiReceiver extends BroadcastReceiver {
                         } else {
                             Log.i(TAG, "Error opening the app automatically");
                         }
-                    } else if (!BackgroundService.notificationSent) {
+                    } else if (notification) {
+                        if (!BackgroundService.notificationSent) {
 
-                        // It knows if a notification has been sent already, elsewhere it shows
+                            // It knows if a notification has been sent already, elsewhere it shows
 
-                        Intent i = new Intent(context, OnBusNotificationService.class);
-                        context.startService(i);
+                            Intent i = new Intent(context, OnBusNotificationService.class);
+                            context.startService(i);
+                        }
                     }
                 }
 

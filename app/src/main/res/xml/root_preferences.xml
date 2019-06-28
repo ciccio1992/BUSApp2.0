@@ -33,6 +33,17 @@
             app:title="Open the app automatically"
             app:defaultValue="false"/>
 
+        <SwitchPreferenceCompat
+            app:key="autoticket"
+            app:summary="@string/autoticket_title"
+            app:title="Autoticket function" />
+
+        <SwitchPreferenceCompat
+            app:key="notification"
+            app:summary="When you get on a bus"
+            app:title="Receive a notification"
+            app:defaultValue="true"/>
+
         <ListPreference
             app:defaultValue="6"
             app:entries="@array/autoticket_entries"
@@ -41,12 +52,6 @@
             app:title="@string/wifi_sensibility_title"
             app:summary="@string/wifi_sensibility_summary"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            app:key="autoticket"
-            app:summary="@string/autoticket_title"
-            app:title="Autoticket function" />
-
 
     </PreferenceCategory>
 
